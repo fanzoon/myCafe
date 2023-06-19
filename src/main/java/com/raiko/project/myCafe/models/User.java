@@ -2,8 +2,8 @@ package com.raiko.project.myCafe.models;
 
 import com.raiko.project.myCafe.enums.Gender;
 import com.raiko.project.myCafe.enums.UserRole;
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,8 +24,8 @@ public class User {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<>();
-    @Column(name = "nikName", unique = true)
-    private String nikName;
+    @Column(name = "nickName", unique = true)
+    private String nickName;
     @Column(name = "password")
     private String password;
 
@@ -43,13 +43,13 @@ public class User {
 
     public User(){}
 
-    public User(Long id, String name, String surName, Set<UserRole> roles, String nikName, String password,
+    public User(Long id, String name, String surName, Set<UserRole> roles, String nickName, String password,
                 LocalDate dateOfCreate, Boolean ban, LocalDate birthday, Gender gender) {
         this.id = id;
         this.name = name;
         this.surName = surName;
         this.roles = roles;
-        this.nikName = nikName;
+        this.nickName = nickName;
         this.password = password;
         this.dateOfCreate = dateOfCreate;
         this.ban = ban;
@@ -89,12 +89,12 @@ public class User {
         this.roles = roles;
     }
 
-    public String getNikName() {
-        return nikName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNikName(String nikName) {
-        this.nikName = nikName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getPassword() {
