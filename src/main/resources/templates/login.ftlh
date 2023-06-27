@@ -8,5 +8,7 @@
     Password<input type="password" name="password"><br>
     <input type="submit" value="Ok">
 </form>
+
+<a href="/registration">Регистрация</a>
 </body>
 </html>
