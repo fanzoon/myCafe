@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.time.LocalDate;
 
 @Controller
 public class UserController {
@@ -41,13 +43,16 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String save(User user, Model model) {
+    public String save(User user, @RequestParam(name = "day") String day)  {
+        user.setBirthday(LocalDate.parse(day));
         if(userService.create(user)) {
             return "hello";
         }
         return "registration";
 
     }
+
+
 
 
 }

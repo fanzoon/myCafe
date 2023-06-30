@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Registration</title>
@@ -8,7 +9,7 @@
     Фамилия<input type="text" name="surName"><br>
     NickName<input type="text" name="nickName"><br>
     Password<input type="password" name="password"><br>
-<!--    День рождения<input type="" name="birthday"><br>-->
+    День рождения<input type="date" name="day"><br>
     Пол<input type="text" name="gender"><br>
     <input type="submit" value="Create!">
 </form>
