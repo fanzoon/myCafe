@@ -29,15 +29,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean create(User user) {
-        if (userRepository.findByNickName(user.getNickName()) != null) {
+        if (userRepository.findByLogin(user.getLogin()) != null) {
             return false;
         }
-        user.getRoles().add(UserRole.USER_ROLE);
+        user.getRoles().add(UserRole.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setDateOfCreate(LocalDate.now());
         user.setBan(false);
         User save = userRepository.save(user);
-        logger.info("Добавлен новый user: " + save.getNickName());
+        logger.info("Добавлен новый user: " + save.getLogin());
         return true;
     }
 }

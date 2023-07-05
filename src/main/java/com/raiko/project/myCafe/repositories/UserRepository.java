@@ -4,5 +4,5 @@ import com.raiko.project.myCafe.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByNickName(String nickName);
+    User findByLogin(String login);
 }

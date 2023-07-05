@@ -21,15 +21,19 @@ public class Dish {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "image")
+    private String image;
+
     public Dish() {
 
     }
 
-    public Dish(Long id, String name, String description, Double price) {
+    public Dish(Long id, String name, String description, Double price, String image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.image = image;
     }
 
     public Long getId() {
@@ -59,5 +63,13 @@ public class Dish {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -1,7 +1,7 @@
 package com.raiko.project.myCafe.models;
 
-import com.raiko.project.myCafe.enums.Gender;
 import com.raiko.project.myCafe.enums.UserRole;
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,8 +27,8 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<>();
-    @Column(name = "nickName", unique = true)
-    private String nickName;
+    @Column(name = "login", unique = true)
+    private String login;
     @Column(name = "password")
     private String password;
 
@@ -37,27 +37,38 @@ public class User implements UserDetails {
     private LocalDate dateOfCreate;
 
     //    private avatar:
-    @Column(name = "ban")
+    @Type(type = "org.hibernate.type.TrueFalseType")
+    @Column(name = "ban", columnDefinition = "CHAR(1)", length = 1)
     private Boolean ban;
     @Column(name = "birthday")
     private LocalDate birthday;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+
+    @Column(name = "image")
+    private String image;
 
     public User(){}
 
-    public User(Long id, String name, String surName, Set<UserRole> roles, String nickName, String password,
-                LocalDate dateOfCreate, Boolean ban, LocalDate birthday, Gender gender) {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public User(Long id, String name, String surName, Set<UserRole> roles, String login, String password,
+                LocalDate dateOfCreate, Boolean ban, LocalDate birthday, String image) {
         this.id = id;
         this.name = name;
         this.surName = surName;
         this.roles = roles;
-        this.nickName = nickName;
+        this.login = login;
         this.password = password;
         this.dateOfCreate = dateOfCreate;
         this.ban = ban;
         this.birthday = birthday;
-        this.gender = gender;
+        this.image = image;
+
     }
 
     public Long getId() {
@@ -92,12 +103,12 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -111,7 +122,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nickName;
+        return login;
     }
 
     @Override
@@ -135,11 +146,11 @@ public class User implements UserDetails {
     }
 
     public boolean isUser() {
-        return getRoles().contains(UserRole.USER_ROLE);
+        return getRoles().contains(UserRole.ROLE_USER);
     }
 
     public boolean isAdmin() {
-        return getRoles().contains(UserRole.ADMIN_ROLE);
+        return getRoles().contains(UserRole.ROLE_ADMIN);
     }
 
 //    public boolean isUnregisteredRole() {
@@ -174,11 +185,4 @@ public class User implements UserDetails {
         this.birthday = birthday;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
 }
