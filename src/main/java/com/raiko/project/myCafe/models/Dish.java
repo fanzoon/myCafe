@@ -3,6 +3,8 @@ package com.raiko.project.myCafe.models;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "dishes")
@@ -23,6 +25,9 @@ public class Dish {
 
     @Column(name = "image")
     private String image;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish")
+    private List<OrderDish> orderDishList = new ArrayList<>();
 
     public Dish() {
 
