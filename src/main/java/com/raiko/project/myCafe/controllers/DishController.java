@@ -23,4 +23,7 @@ public class DishController {
         model.addAttribute("dishes", dishes);
         return "dish/dish";
     }
+
+
+
 }
