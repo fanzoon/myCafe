@@ -1,18 +1,14 @@
 package com.raiko.project.myCafe.controllers;
 
-import com.raiko.project.myCafe.enums.UserRole;
 import com.raiko.project.myCafe.models.User;
-import com.raiko.project.myCafe.services.UserService;
 import com.raiko.project.myCafe.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.time.LocalDate;
 
 @Controller

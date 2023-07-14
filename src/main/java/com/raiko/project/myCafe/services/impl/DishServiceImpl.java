@@ -23,7 +23,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Dish getDishById(Long id) {
-        return null;
+        return dishRepository.getById(id);
     }
 
     @Override

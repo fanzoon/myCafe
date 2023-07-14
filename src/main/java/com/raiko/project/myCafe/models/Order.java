@@ -18,5 +18,27 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDish> orderDishList = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<OrderDish> getOrderDishList() {
+        return orderDishList;
+    }
+
+    public void setOrderDishList(List<OrderDish> orderDishList) {
+        this.orderDishList = orderDishList;
+    }
 }

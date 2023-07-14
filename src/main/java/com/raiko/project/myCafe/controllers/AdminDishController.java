@@ -3,6 +3,7 @@ package com.raiko.project.myCafe.controllers;
 
 import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.services.impl.DishServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,16 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/dish")
 public class AdminDishController {
 
+    @Autowired
+    private DishServiceImpl dishService;
 
-    private final DishServiceImpl dishService;
-
-    public AdminDishController(DishServiceImpl dishService) {
-        this.dishService = dishService;
-    }
 
     @GetMapping("/add")
     public String addDish(@ModelAttribute("dish") Dish dish) {
-        return "dish/addDish";
+        return "admin/addDish";
     }
 
     @PostMapping("/add")
