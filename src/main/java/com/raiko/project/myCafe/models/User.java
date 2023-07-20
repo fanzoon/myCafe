@@ -1,6 +1,5 @@
 package com.raiko.project.myCafe.models;
 
-import com.raiko.project.myCafe.enums.UserRole;
 import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,10 +20,8 @@ public class User implements UserDetails {
     private String name;
     @Column(name = "surName")
     private String surName;
-    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<UserRole> roles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<UserRole> userRoleList = new ArrayList<>();
     @Column(name = "login", unique = true)
     private String login;
     @Column(name = "password")
@@ -48,6 +45,36 @@ public class User implements UserDetails {
 
     public User(){}
 
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
+    }
+
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    public User(Long id, String name, String surName, List<UserRole> userRoleList, String login, String password, LocalDate dateOfCreate, Boolean ban, LocalDate birthday, String image, List<Order> orderList) {
+        this.id = id;
+        this.name = name;
+        this.surName = surName;
+        this.userRoleList = userRoleList;
+        this.login = login;
+        this.password = password;
+        this.dateOfCreate = dateOfCreate;
+        this.ban = ban;
+        this.birthday = birthday;
+        this.image = image;
+        this.orderList = orderList;
+    }
+
     public String getImage() {
         return image;
     }
@@ -56,20 +83,7 @@ public class User implements UserDetails {
         this.image = image;
     }
 
-    public User(Long id, String name, String surName, Set<UserRole> roles, String login, String password,
-                LocalDate dateOfCreate, Boolean ban, LocalDate birthday, String image) {
-        this.id = id;
-        this.name = name;
-        this.surName = surName;
-        this.roles = roles;
-        this.login = login;
-        this.password = password;
-        this.dateOfCreate = dateOfCreate;
-        this.ban = ban;
-        this.birthday = birthday;
-        this.image = image;
 
-    }
 
     public Long getId() {
         return id;
@@ -95,13 +109,6 @@ public class User implements UserDetails {
         this.surName = surName;
     }
 
-    public Set<UserRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<UserRole> roles) {
-        this.roles = roles;
-    }
 
     public String getLogin() {
         return login;
@@ -117,7 +124,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return this.userRoleList;
     }
 
     @Override
@@ -145,13 +152,13 @@ public class User implements UserDetails {
         return !ban;
     }
 
-    public boolean isUser() {
-        return getRoles().contains(UserRole.ROLE_USER);
-    }
-
-    public boolean isAdmin() {
-        return getRoles().contains(UserRole.ROLE_ADMIN);
-    }
+//    public boolean isUser() {
+//        return getRoles().contains(UserRole.ROLE_USER);
+//    }
+//
+//    public boolean isAdmin() {
+//        return getRoles().contains(UserRole.ROLE_ADMIN);
+//    }
 
 //    public boolean isUnregisteredRole() {
 //        return getRoles().contains(UserRole.UNREGISTERED_ROLE);

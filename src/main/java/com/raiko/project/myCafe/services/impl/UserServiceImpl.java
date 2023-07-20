@@ -1,7 +1,7 @@
 package com.raiko.project.myCafe.services.impl;
 
-import com.raiko.project.myCafe.enums.UserRole;
 import com.raiko.project.myCafe.models.User;
+import com.raiko.project.myCafe.models.UserRole;
 import com.raiko.project.myCafe.repositories.UserRepository;
 import com.raiko.project.myCafe.services.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByLogin(user.getLogin()) != null) {
             return false;
         }
-        user.getRoles().add(UserRole.ROLE_USER);
+        user.getUserRoleList().add(new UserRole(null, "ROLE_USER", user));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setDateOfCreate(LocalDate.now());
         user.setBan(false);
