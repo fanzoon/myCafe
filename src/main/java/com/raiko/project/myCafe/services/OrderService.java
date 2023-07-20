@@ -6,6 +6,6 @@ import com.raiko.project.myCafe.models.User;
 import java.util.List;
 
 public interface OrderService {
-    Order addOrder(Long dishId, User user);
+    Order addOrder(Long dishId);
     List<Order> getOrderByUser(User user);
 }

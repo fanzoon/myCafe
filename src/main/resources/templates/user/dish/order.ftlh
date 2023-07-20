@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dishes</title>
+    <title>order</title>
     <style>
         table {
             border-collapse: collapse;
             margin: 20px 0;
         }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+        th, td {padding: 10px;
+            border: 1px
+            solid #ddd;
         }
-
         th {
             font-weight: bold;
             text-align: left;
         }
-
         th:last-child,
         td:last-child {
             text-align: center;
         }
-
         tr:hover {
             background-color: #f5f5f5;
         }
@@ -36,7 +32,7 @@
         <th>Наименование блюда</th>
         <th>Описание блюда</th>
         <th>Цена</th>
-        <th>Добавить в заказ</th>
+        <th>Количество</th>
     </tr>
     </thead>
     <tbody>
@@ -63,28 +59,11 @@
         <th>Описание блюда</th>
         <th>Цена</th>
         <th>Количество</th>
-        <th>Сумма</th>
     </tr>
     </thead>
 
     <tbody>
-    <#list listBasketDTO as basket>
-    <tr>
-        <th>${basket.name}</th>
-        <th>${basket.description}</th>
-        <th>${basket.price}</th>
-        <th>${basket.count}</th>
-        <th>${basket.amount}</th>
-        </th>
-    </tr>
-    </#list>
-    <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>Общая сумма</th>
-        <th>${totalAmount}</th>
-    </tr>
+
     </tbody>
 </table>
 

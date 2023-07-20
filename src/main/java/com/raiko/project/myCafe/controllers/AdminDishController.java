@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@PreAuthorize("hasAuthority('ADMIN_ROLE')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RequestMapping("/admin/dish")
 public class AdminDishController {
 
@@ -21,14 +21,14 @@ public class AdminDishController {
 
 
     @GetMapping("/add")
-    public String addDish(@ModelAttribute("dish") Dish dish) {
+    public String addDish() {
         return "admin/addDish";
     }
 
     @PostMapping("/add")
     public  String save(@ModelAttribute("dish") Dish dish) {
-
-        return "hello";
+        dishService.addDish(dish);
+        return "redirect:/";
     }
 
 

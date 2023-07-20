@@ -6,6 +6,7 @@ import com.raiko.project.myCafe.repositories.UserRepository;
 import com.raiko.project.myCafe.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +15,10 @@ import java.time.LocalDate;
 @Service
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-//    public UserServiceImpl(UserRepository userRepository) {
-//
-//    }
-
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override

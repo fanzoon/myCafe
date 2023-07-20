@@ -33,13 +33,13 @@ public class Dish {
 
     }
 
-    public Dish(Long id, String name, String description, Double price, String image) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-    }
+//    public Dish(Long id, String name, String description, Double price, String image) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.price = price;
+//        this.image = image;
+//    }
 
     public Long getId() {
         return id;
@@ -77,4 +77,6 @@ public class Dish {
     public void setImage(String image) {
         this.image = image;
     }
+
+
 }
