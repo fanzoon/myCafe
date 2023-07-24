@@ -26,18 +26,21 @@ public class BasketServiceImpl implements BasketService {
         List<BasketDTO> basketDTOList = new ArrayList<>();
         Optional<Order> orderByUserId = orderRepository.findByUserId(user.getId());
         Order order = orderByUserId.orElse(null);
-        orderDishList = order.getOrderDishList();
-        for (OrderDish orderDish: orderDishList) {
-            BasketDTO basketDTO = new BasketDTO();
-            Dish dish = orderDish.getDish();
-            basketDTO.setDishId(dish.getId());
-            basketDTO.setName(dish.getName());
-            basketDTO.setDescription(dish.getDescription());
-            basketDTO.setPrice(dish.getPrice());
-            basketDTO.setCount(orderDish.getCount());
-            basketDTO.setAmount(dish.getPrice() * orderDish.getCount());
-            basketDTOList.add(basketDTO);
+        if (order != null) {
+            orderDishList = order.getOrderDishList();
+            for (OrderDish orderDish: orderDishList) {
+                BasketDTO basketDTO = new BasketDTO();
+                Dish dish = orderDish.getDish();
+                basketDTO.setDishId(dish.getId());
+                basketDTO.setName(dish.getName());
+                basketDTO.setDescription(dish.getDescription());
+                basketDTO.setPrice(dish.getPrice());
+                basketDTO.setCount(orderDish.getCount());
+                basketDTO.setAmount(dish.getPrice() * orderDish.getCount());
+                basketDTOList.add(basketDTO);
+            }
         }
+
         return basketDTOList;
     }
 

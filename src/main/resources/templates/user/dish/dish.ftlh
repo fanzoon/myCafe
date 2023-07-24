@@ -82,7 +82,7 @@
         <th></th>
         <th></th>
         <th></th>
-        <th>Общая сумма</th>
+        <th>Итого:</th>
         <th>${totalAmount}</th>
     </tr>
     </tbody>

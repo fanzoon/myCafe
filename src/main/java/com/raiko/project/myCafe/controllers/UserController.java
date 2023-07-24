@@ -16,18 +16,6 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-//    @GetMapping("/")
-//    public String hello(Principal principal) {
-//        if (principal == null) {
-//            return "registration";
-//        }
-//        if (((UsernamePasswordAuthenticationToken) principal).getAuthorities().contains(UserRole.ROLE_USER)){
-//            return "hello";
-//        } if (((UsernamePasswordAuthenticationToken) principal).getAuthorities().contains(UserRole.ROLE_ADMIN)){
-//            return "goodbye";
-//        } return null;
-//    }
-
     @GetMapping("/login")
     public String login() {
         return "login";

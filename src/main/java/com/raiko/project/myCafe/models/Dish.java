@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "dishes")
@@ -32,14 +33,6 @@ public class Dish {
     public Dish() {
 
     }
-
-//    public Dish(Long id, String name, String description, Double price, String image) {
-//        this.id = id;
-//        this.name = name;
-//        this.description = description;
-//        this.price = price;
-//        this.image = image;
-//    }
 
     public Long getId() {
         return id;
@@ -78,5 +71,28 @@ public class Dish {
         this.image = image;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dish dish = (Dish) o;
+        return Objects.equals(id, dish.id) && Objects.equals(name, dish.name) && Objects.equals(description, dish.description) && Objects.equals(price, dish.price) && Objects.equals(image, dish.image) && Objects.equals(orderDishList, dish.orderDishList);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, price, image, orderDishList);
+    }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", orderDishList=" + orderDishList +
+                '}';
+    }
 }

@@ -20,8 +20,8 @@ public class User implements UserDetails {
     private String name;
     @Column(name = "surName")
     private String surName;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private List<UserRole> userRoleList = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private UserRole userRole;
     @Column(name = "login", unique = true)
     private String login;
     @Column(name = "password")
@@ -45,12 +45,12 @@ public class User implements UserDetails {
 
     public User(){}
 
-    public List<UserRole> getUserRoleList() {
-        return userRoleList;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setUserRoleList(List<UserRole> userRoleList) {
-        this.userRoleList = userRoleList;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public List<Order> getOrderList() {
@@ -61,11 +61,11 @@ public class User implements UserDetails {
         this.orderList = orderList;
     }
 
-    public User(Long id, String name, String surName, List<UserRole> userRoleList, String login, String password, LocalDate dateOfCreate, Boolean ban, LocalDate birthday, String image, List<Order> orderList) {
+    public User(Long id, String name, String surName, UserRole userRole, String login, String password, LocalDate dateOfCreate, Boolean ban, LocalDate birthday, String image, List<Order> orderList) {
         this.id = id;
         this.name = name;
         this.surName = surName;
-        this.userRoleList = userRoleList;
+        this.userRole = userRole;
         this.login = login;
         this.password = password;
         this.dateOfCreate = dateOfCreate;
@@ -118,14 +118,21 @@ public class User implements UserDetails {
         this.login = login;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+         List<UserRole> userRoleList = new ArrayList<>();
+         userRoleList.add(this.userRole);
+         return userRoleList;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.userRoleList;
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return this.userRole;
+//    }
 
     @Override
     public String getUsername() {
@@ -152,17 +159,6 @@ public class User implements UserDetails {
         return !ban;
     }
 
-//    public boolean isUser() {
-//        return getRoles().contains(UserRole.ROLE_USER);
-//    }
-//
-//    public boolean isAdmin() {
-//        return getRoles().contains(UserRole.ROLE_ADMIN);
-//    }
-
-//    public boolean isUnregisteredRole() {
-//        return getRoles().contains(UserRole.UNREGISTERED_ROLE);
-//    }
 
     public void setPassword(String password) {
         this.password = password;

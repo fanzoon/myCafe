@@ -15,6 +15,9 @@ public class OrderDish {
     @Column(name = "count")
     private int count;
 
+    public OrderDish() {
+    }
+
     public Long getId() {
         return id;
     }
