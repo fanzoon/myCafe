@@ -18,8 +18,8 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDish> orderDishList = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<OrderStatus> orderStatusList = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+//    private List<OrderStatus> orderStatusList = new ArrayList<>();
 
     public Long getId() {
         return id;

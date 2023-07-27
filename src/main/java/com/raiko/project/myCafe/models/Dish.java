@@ -1,7 +1,5 @@
 package com.raiko.project.myCafe.models;
 
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +27,29 @@ public class Dish {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish")
     private List<OrderDish> orderDishList = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private DishCategory dishCategory;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<OrderDish> getOrderDishList() {
+        return orderDishList;
+    }
+
+    public void setOrderDishList(List<OrderDish> orderDishList) {
+        this.orderDishList = orderDishList;
+    }
+
+    public DishCategory getDishCategory() {
+        return dishCategory;
+    }
+
+    public void setDishCategory(DishCategory dishCategory) {
+        this.dishCategory = dishCategory;
+    }
 
     public Dish() {
 

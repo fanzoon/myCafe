@@ -11,6 +11,8 @@
 <b>Наименование:</b> ${dish.name} <br>
 <b>Описание:</b> ${dish.description} <br>
 <b>Цена:</b> ${dish.price} <br>
+<b>Категория блюда:</b> ${dish.dishCategory.name} <br>
+
 
 <form action="/addDishToOrder/${dish.id}" method="post">
     <input type="submit" value="Добавить в заказ">

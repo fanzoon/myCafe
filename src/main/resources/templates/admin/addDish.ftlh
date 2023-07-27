@@ -19,7 +19,19 @@
         <label for="price">Enter price</label>
         <input type="number" name="price" id="price"/>
     </p>
-    <input type="submit" value="Create!">
+    <p>
+        <label for="dishCategory">Enter dishCategory</label>
+        <select name="dishCategory" id="dishCategory">
+            <#list categories as category>
+            <option value="${category.id}">${category.name}</option>
+        </#list>
+        </select>
+    </p>
+
+    <p>
+        <input type="submit" value="Create!">
+    </p>
+
 </form>
 
 </body>

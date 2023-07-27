@@ -4,7 +4,6 @@ import com.raiko.project.myCafe.models.User;
 import com.raiko.project.myCafe.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,13 +29,8 @@ public class UserController {
     public String save(User user, @RequestParam(name = "day") String day)  {
         user.setBirthday(LocalDate.parse(day));
         if(userService.create(user)) {
-            return "hello";
+            return "redirect:/";
         }
         return "registration";
-
     }
-
-
-
-
 }
