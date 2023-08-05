@@ -88,5 +88,9 @@
     </tbody>
 </table>
 
+<th>
+    <a href="/admin/dish/getAllDishCategory">Для администратора</a>
+</th>
+
 </body>
 </html>

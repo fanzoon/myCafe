@@ -20,7 +20,7 @@
         <input type="number" name="price" id="price"/>
     </p>
     <p>
-        <label for="dishCategory">Enter dishCategory</label>
+        <label for="dishCategory">Enter dish Category</label>
         <select name="dishCategory" id="dishCategory">
             <#list categories as category>
             <option value="${category.id}">${category.name}</option>

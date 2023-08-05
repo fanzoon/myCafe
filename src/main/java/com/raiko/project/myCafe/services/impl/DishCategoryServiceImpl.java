@@ -8,6 +8,7 @@ import com.raiko.project.myCafe.services.DishCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,11 +39,31 @@ public class DishCategoryServiceImpl implements DishCategoryService {
 
     @Override
     public List<DishCategory> getAllDishCategory() {
-        return dishCategoryRepository.findAll();
+        List<DishCategory> dishCategoryList = dishCategoryRepository.findAll();
+//        List<DishCategory> dishCategories = new ArrayList<>();
+//        for (DishCategory dishcategory: dishCategoryList) {
+//            if (dishcategory.isActivity() == true)
+//                dishCategories.add(dishcategory);
+//        }
+        return dishCategoryList;
     }
 
     @Override
-    public List<Dish> getAllDishesIntoDishCategory(Long id) {
-        return null;
+    public List<Dish> getAllDishesOfDishCategory(Long id) {
+        DishCategory dishCategory = dishCategoryRepository.findById(id).get();
+        return dishRepository.findAllByDishCategory(dishCategory);
+    }
+
+    @Override
+    public void changeStatusDishCategory(Long id) {
+        DishCategory dishCategory = dishCategoryRepository.findById(id).get();
+        boolean activity = dishCategory.isActivity();
+        if (activity) {
+            activity = false;
+        } else {
+            activity = true;
+        }
+        dishCategory.setActivity(activity);
+        dishCategoryRepository.save(dishCategory);
     }
 }

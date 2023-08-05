@@ -8,6 +8,18 @@ public class BasketDTO {
     private int count;
     private Double amount;
 
+    public BasketDTO() {
+    }
+
+    public BasketDTO(Long dishId, String name, String description, Double price, int count, Double amount) {
+        this.dishId = dishId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.count = count;
+        this.amount = amount;
+    }
+
     public Long getDishId() {
         return dishId;
     }

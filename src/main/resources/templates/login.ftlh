@@ -11,5 +11,7 @@
 </form>
 
 <a href="/registration">Регистрация</a>
+<br>
+
 </body>
 </html>

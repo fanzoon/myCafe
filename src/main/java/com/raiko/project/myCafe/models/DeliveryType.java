@@ -1,28 +1,23 @@
 package com.raiko.project.myCafe.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "order_status")
-public class OrderStatus {
+@Table(name = "deliveries_type")
+public class DeliveryType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
     private String name;
 
-    public OrderStatus() {
-
+    public DeliveryType() {
     }
 
-    public OrderStatus(Long id, String name) {
+    public DeliveryType(Long id, String name) {
         this.id = id;
         this.name = name;
-
     }
-
 
     public Long getId() {
         return id;
@@ -39,5 +34,4 @@ public class OrderStatus {
     public void setName(String name) {
         this.name = name;
     }
-
 }

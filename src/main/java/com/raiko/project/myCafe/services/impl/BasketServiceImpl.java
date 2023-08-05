@@ -1,6 +1,7 @@
 package com.raiko.project.myCafe.services.impl;
 
 import com.raiko.project.myCafe.dtos.BasketDTO;
+import com.raiko.project.myCafe.exceptions.NotFindDishException;
 import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.models.Order;
 import com.raiko.project.myCafe.models.OrderDish;
@@ -8,6 +9,7 @@ import com.raiko.project.myCafe.models.User;
 import com.raiko.project.myCafe.repositories.OrderRepository;
 import com.raiko.project.myCafe.services.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,13 +22,14 @@ public class BasketServiceImpl implements BasketService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private OrderServiceImpl orderService;
+
     @Override
     public List<BasketDTO> getAllBasketDTO(User user) {
         List <OrderDish> orderDishList;
         List<BasketDTO> basketDTOList = new ArrayList<>();
-        Optional<Order> orderByUserId = orderRepository.findByUserId(user.getId());
-        Order order = orderByUserId.orElse(null);
-        if (order != null) {
+        Order order = orderService.getOrder();
             orderDishList = order.getOrderDishList();
             for (OrderDish orderDish: orderDishList) {
                 BasketDTO basketDTO = new BasketDTO();
@@ -39,7 +42,6 @@ public class BasketServiceImpl implements BasketService {
                 basketDTO.setAmount(dish.getPrice() * orderDish.getCount());
                 basketDTOList.add(basketDTO);
             }
-        }
 
         return basketDTOList;
     }

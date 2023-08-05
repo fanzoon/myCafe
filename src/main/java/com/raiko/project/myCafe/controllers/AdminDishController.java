@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -37,7 +39,7 @@ public class AdminDishController {
         DishCategory dishCategoryById = dishCategoryService.getDishCategoryById(dishCategoryId);
         dish.setDishCategory(dishCategoryById);
         dishService.addDish(dish);
-        return "redirect:/";
+        return "redirect:/admin/dish/getAllDishCategory";
     }
 
     @GetMapping("/addCategory")
@@ -50,7 +52,7 @@ public class AdminDishController {
     @PostMapping("/addCategory")
     public String saveCategoryDish(@ModelAttribute("dishCategory") DishCategory dishCategory) {
         dishCategoryService.addCategory(dishCategory);
-        return "redirect:/admin/dish/addCategory";
+        return "redirect:/admin/dish/getAllDishCategory";
     }
 
     @GetMapping("/updateCategory/{id}")
@@ -63,12 +65,28 @@ public class AdminDishController {
     @PostMapping("/updateCategory/{id}")
     public String saveUpdatedDishCategory(@ModelAttribute("dishCategory") DishCategory dishCategory) {
         dishCategoryService.updateCategory(dishCategory);
-        return "redirect:/admin/dish/addCategory";
+        return "redirect:/admin/dish/getAllDishCategory";
     }
 
     @GetMapping("/getAllDishOfCategory/{id}")
     public String showAllDishesIntoDishCategory(@PathVariable("id") Long id, Model model) {
-        dishCategoryService.getAllDishesIntoDishCategory(id);
-        return null;
+        List<Dish> allDishesIntoDishCategory = dishCategoryService.getAllDishesOfDishCategory(id);
+        model.addAttribute("allDishesIntoDishCategory", allDishesIntoDishCategory);
+        return "admin/getAllDishOfCategory";
     }
+
+    @GetMapping("/getAllDishCategory")
+    public String getAllDishCategory(Model model) {
+        List<DishCategory> allDishCategory = dishCategoryService.getAllDishCategory();
+        Collections.sort(allDishCategory, Comparator.comparingInt(DishCategory::getNumberPriority));
+        model.addAttribute("allDishCategory", allDishCategory);
+        return "/admin/getAllDishCategory";
+    }
+
+    @PostMapping("/changeStatusDishCategory/{id}")
+    public String changeStatusDishCategory(@PathVariable("id") Long id) {
+        dishCategoryService.changeStatusDishCategory(id);
+        return "redirect:/admin/dish/getAllDishCategory";
+    }
+
 }

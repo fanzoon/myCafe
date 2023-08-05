@@ -43,6 +43,9 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orderList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    List<Contact> contacts = new ArrayList<>();
+
     public User(){}
 
     public UserRole getUserRole() {
@@ -61,7 +64,26 @@ public class User implements UserDetails {
         this.orderList = orderList;
     }
 
-    public User(Long id, String name, String surName, UserRole userRole, String login, String password, LocalDate dateOfCreate, Boolean ban, LocalDate birthday, String image, List<Order> orderList) {
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public User(Long id,
+                String name,
+                String surName,
+                UserRole userRole,
+                String login,
+                String password,
+                LocalDate dateOfCreate,
+                Boolean ban,
+                LocalDate birthday,
+                String image,
+                List<Order> orderList,
+                List<Contact> contacts) {
         this.id = id;
         this.name = name;
         this.surName = surName;
@@ -73,6 +95,7 @@ public class User implements UserDetails {
         this.birthday = birthday;
         this.image = image;
         this.orderList = orderList;
+        this.contacts = contacts;
     }
 
     public String getImage() {

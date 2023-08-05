@@ -13,9 +13,10 @@ public interface DishCategoryService {
 
     DishCategory getDishCategoryById(Long Id);
 
-
     List<DishCategory> getAllDishCategory();
 
-    List<Dish> getAllDishesIntoDishCategory(Long id);
+    List<Dish> getAllDishesOfDishCategory(Long id);
+
+    void changeStatusDishCategory(Long id);
 }
 

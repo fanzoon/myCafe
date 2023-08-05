@@ -11,10 +11,23 @@ public class DishCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "number_priority")
     private Integer numberPriority;
+
+    @Column(name = "activity")
+    private boolean activity;
+
+    public boolean isActivity() {
+        return activity;
+    }
+
+    public void setActivity(boolean activity) {
+        this.activity = activity;
+    }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dishCategory")
     private List<Dish> dish = new ArrayList<>();

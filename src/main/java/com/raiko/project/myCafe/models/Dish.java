@@ -25,7 +25,7 @@ public class Dish {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish", orphanRemoval = true)
     private List<OrderDish> orderDishList = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
@@ -53,6 +53,22 @@ public class Dish {
 
     public Dish() {
 
+    }
+
+    public Dish(Long id,
+                String name,
+                String description,
+                Double price,
+                String image,
+                List<OrderDish> orderDishList,
+                DishCategory dishCategory) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.image = image;
+        this.orderDishList = orderDishList;
+        this.dishCategory = dishCategory;
     }
 
     public Long getId() {
