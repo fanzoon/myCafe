@@ -103,6 +103,9 @@
 <p>
     <a href="/addContact">Добавить контакт</a> <br>
 </p>
-
+<br>
+<p>
+    <a href="/historyOfOrders">История заказов</a> <br>
+</p>
 </body>
 </html>

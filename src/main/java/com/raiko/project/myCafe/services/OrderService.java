@@ -1,5 +1,6 @@
 package com.raiko.project.myCafe.services;
 
+import com.raiko.project.myCafe.dtos.OrderHistoryDTO;
 import com.raiko.project.myCafe.dtos.OrderingDTO;
 import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.models.Order;
@@ -19,4 +20,6 @@ public interface OrderService {
     Order getOrder();
 
     void changeStatusOrder(OrderingDTO orderingDTO);
+
+    List<OrderHistoryDTO> getHistoryOfOrdersIsPaid();
 }

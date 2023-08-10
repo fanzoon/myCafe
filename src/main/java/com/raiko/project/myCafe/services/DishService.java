@@ -12,9 +12,7 @@ public interface DishService {
 
     Dish getDishById(Long id);
 
-    Dish addDish(Dish newDish, MultipartFile file) throws IOException;
-
-    void deleteDish(Long id);
+    Dish addOrUpdateDish(Dish newDish, MultipartFile file) throws IOException;
 
     Dish updateDish(Dish dish);
 }

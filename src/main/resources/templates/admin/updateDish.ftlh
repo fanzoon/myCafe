@@ -8,6 +8,10 @@
 
 <form method="POST" action="/admin/dish/updateDish" enctype="multipart/form-data">
     <p>
+    <input type="hidden" name="id" value="${dish.id}"/>
+    </p>
+
+    <p>
         <label for="name">Enter name</label>
         <input type="text" name="name" value="${dish.name}" id="name"/>
     </p>

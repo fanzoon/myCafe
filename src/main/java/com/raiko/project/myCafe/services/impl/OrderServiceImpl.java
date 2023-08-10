@@ -1,5 +1,6 @@
 package com.raiko.project.myCafe.services.impl;
 
+import com.raiko.project.myCafe.dtos.OrderHistoryDTO;
 import com.raiko.project.myCafe.dtos.OrderingDTO;
 import com.raiko.project.myCafe.exceptions.NotFindDishException;
 import com.raiko.project.myCafe.models.*;
@@ -10,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private  DeliveryTypeRepository deliveryTypeRepository;
+
+    @Autowired
+    private BasketServiceImpl basketService;
 
     @Override
     public Dish addOrder(Long dishId) {
@@ -85,11 +91,40 @@ public class OrderServiceImpl implements OrderService {
     public void changeStatusOrder(OrderingDTO orderingDTO) {
         Order order = orderRepository.findById(orderingDTO.getOrderId()).get();
         PaymentType paymentType = paymentTypeRepository.findById(orderingDTO.getPaymentTypeId()).get();
+        order.setDateOfOrdering(LocalDate.now());
         order.setPaymentType(paymentType);
         DeliveryType deliveryType = deliveryTypeRepository.findById(orderingDTO.getDeliveryTypeId()).get();
         order.setDeliveriesType(deliveryType);
         order.setOrderStatus(orderStatusRepository.findByName("DONE").get());
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<OrderHistoryDTO> getHistoryOfOrdersIsPaid() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        List<Order> orderList = orderRepository.findByUserId(user.getId());
+        List<OrderHistoryDTO> result = new ArrayList<>();
+        for (Order order : orderList) {
+            if (order.getOrderStatus().getName().equals("DONE")){
+                OrderHistoryDTO dto = new OrderHistoryDTO();
+                dto.setNumber(Math.toIntExact(order.getId()));
+                dto.setDateOfOrdering(order.getDateOfOrdering());
+                dto.setDeliveriesType(order.getDeliveriesType().getName());
+                dto.setPaymentType(order.getPaymentType().getName());
+                dto.setAmount(countAmountInOrder(order.getOrderDishList()));
+                result.add(dto);
+            }
+        }
+        return result;
+    }
+
+    private Double countAmountInOrder(List<OrderDish> orderDishList) {
+        Double result = 0.;
+        for (OrderDish orderDish : orderDishList) {
+            result = result + orderDish.getDish().getPrice() * orderDish.getCount();
+        }
+        return result;
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+//import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -23,9 +24,6 @@ public class User implements UserDetails {
     @Column(name = "surName")
     private String surName;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private UserRole userRole;
-
     @Column(name = "login", unique = true)
     private String login;
 
@@ -34,6 +32,9 @@ public class User implements UserDetails {
 
     @Column(name = "dateOfCreate")
     private LocalDate dateOfCreate;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private UserRole userRole;
 
     @Type(type = "org.hibernate.type.TrueFalseType")
     @Column(name = "ban", columnDefinition = "CHAR(1)", length = 1)
@@ -190,9 +191,7 @@ public class User implements UserDetails {
     public LocalDate getBirthday() {
         return birthday;
     }
-
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
-
 }

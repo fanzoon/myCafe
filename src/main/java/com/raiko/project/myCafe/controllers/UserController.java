@@ -5,6 +5,7 @@ import com.raiko.project.myCafe.services.impl.ContactTypeServiceImpl;
 import com.raiko.project.myCafe.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String save(User user, @RequestParam(name = "day") String day)  {
+    public String save( User user, @RequestParam(name = "day") String day, BindingResult bindingResult)  {
         user.setBirthday(LocalDate.parse(day));
         if(userService.create(user)) {
             return "redirect:/";

@@ -1,6 +1,7 @@
 package com.raiko.project.myCafe.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "dateOfOrdering")
+    private LocalDate dateOfOrdering;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private User user;
@@ -30,14 +34,6 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, User user, DeliveryType deliveriesType, PaymentType paymentType, OrderStatus orderStatus, List<OrderDish> orderDishList) {
-        this.id = id;
-        this.user = user;
-        this.deliveriesType = deliveriesType;
-        this.paymentType = paymentType;
-        this.orderStatus = orderStatus;
-        this.orderDishList = orderDishList;
-    }
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
@@ -85,5 +81,13 @@ public class Order {
 
     public void setOrderDishList(List<OrderDish> orderDishList) {
         this.orderDishList = orderDishList;
+    }
+
+    public LocalDate getDateOfOrdering() {
+        return dateOfOrdering;
+    }
+
+    public void setDateOfOrdering(LocalDate dateOfOrdering) {
+        this.dateOfOrdering = dateOfOrdering;
     }
 }

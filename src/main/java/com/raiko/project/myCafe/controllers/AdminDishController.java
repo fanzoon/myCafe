@@ -43,15 +43,10 @@ public class AdminDishController {
                        @RequestParam("file") MultipartFile file) throws IOException {
         DishCategory dishCategoryById = dishCategoryService.getDishCategoryById(dishCategoryId);
         dish.setDishCategory(dishCategoryById);
-        dishService.addDish(dish, file);
+        dishService.addOrUpdateDish(dish, file);
         return "redirect:/admin/dish/getAllDishOfCategory/" + dishCategoryId;
     }
 
-//    @PostMapping("/deleteDish/{dishId}")
-//    public String deleteDish(@PathVariable Long dishId) {
-//        dishService.deleteDish(dishId);
-//        return "redirect:/admin/dish/getAllDishCategory";
-//    }
 
     @GetMapping("/updateDish/{dishId}")
     public String updateDish(@PathVariable Long dishId, Model model) {
@@ -68,7 +63,7 @@ public class AdminDishController {
                                  @RequestParam("file") MultipartFile file) throws IOException {
         DishCategory dishCategoryById = dishCategoryService.getDishCategoryById(dishCategoryId);
         dish.setDishCategory(dishCategoryById);
-        dishService.addDish(dish, file);
+        dishService.addOrUpdateDish(dish, file);
         return "redirect:/admin/dish/getAllDishOfCategory/" + dishCategoryId;
     }
 
@@ -120,5 +115,4 @@ public class AdminDishController {
         dishCategoryService.changeStatusDishCategory(id);
         return "redirect:/admin/dish/getAllDishCategory";
     }
-
 }

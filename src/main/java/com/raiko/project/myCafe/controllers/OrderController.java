@@ -1,6 +1,7 @@
 package com.raiko.project.myCafe.controllers;
 
 import com.raiko.project.myCafe.dtos.BasketDTO;
+import com.raiko.project.myCafe.dtos.OrderHistoryDTO;
 import com.raiko.project.myCafe.dtos.OrderingDTO;
 import com.raiko.project.myCafe.models.*;
 import com.raiko.project.myCafe.services.impl.BasketServiceImpl;
@@ -79,5 +80,12 @@ public class OrderController {
         Order order = orderService.getOrder();
         model.addAttribute("order", order);
         return "user/dish/basket";
+    }
+
+    @GetMapping("/historyOfOrders")
+    public String historyOfOrders(Model model) {
+        List<OrderHistoryDTO> orderHistoryDTOList = orderService.getHistoryOfOrdersIsPaid();
+        model.addAttribute("orderHistoryDTOList", orderHistoryDTOList);
+        return "user/dish/historyOrder";
     }
 }

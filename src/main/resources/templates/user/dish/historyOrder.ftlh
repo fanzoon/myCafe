@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:padding="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>New CategoryOfDish</title>
-    <link rel="stylesheet" href="/templates/assets/css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
+
     <style>
         table {
             border-collapse: collapse;
@@ -45,20 +46,6 @@
             justify-content: center;
             color: #cfc6b2;
         }
-        .button {
-            height:75px;
-            width: 200px;
-            border-radius: 10px;
-            background:#DCDCDC;
-            cursor:pointer;
-            font-size:1vw;
-        }
-
-        .button2 {
-            height:20px;
-            width: 30px;
-        }
-
         a {
             text-decoration: none;
             color: #8686c8;
@@ -75,52 +62,42 @@
         tbody {
             font-size: 1.2rem;
         }
-
-
     </style>
-
 </head>
 <body>
 <header style="margin: 0; padding: 0; ">
-    <div id="menu"> <!-- Меню -->
+    <div id="menu">
         <ul>
-            <li ><a href="/">Главная</a></li>
-            <li><a href="/basket">Корзина</a></li>
-            <li><a href="/userSetting">Личный кабинет</a></li>
-            <li><a href="/admin/dish/getAllDishCategory">Для администратора</a></li>
+
+            <li><a href="/userSetting"><< Вернуться назад</a></li>
+
         </ul>
     </div>
 </header>
 
-<h1 align ="center">${dishCategory.name}</h1>
-
+<h1 align ="center">История заказов</h1>
 <table>
     <thead>
     <tr>
-        <th>Наименование блюда</th>
-        <th>Описание блюда</th>
-        <th>Цена, руб.</th>
-        <th>Добавить блюдо в заказ</th>
+        <th>Номер заказа</th>
+        <th>Тип доставки</th>
+        <th>Тип оплаты</th>
+        <th>Сумма заказа</th>
+        <th>Дата заказа</th>
     </tr>
     </thead>
     <tbody>
-    <#list allDishesIntoDishCategory as dish>
+    <#list orderHistoryDTOList as orderHistory>
     <tr>
-        <th>
-            <a href="/infoDish/${dish.id}">${dish.name}</a>
-            </th>
-        <th>${dish.description}</th>
-        <th>${dish.price}</th>
-        <th>
-            <form action="/addDishToOrder/${dish.id}" method="post">
-                <input type="submit" value="Добавить в заказ">
-            </form>
-        </th>
+        <th>${orderHistory.number}</th>
+        <th>${orderHistory.deliveriesType}</th>
+        <th>${orderHistory.paymentType}</th>
+        <th>${orderHistory.amount}</th>
+        <th>${orderHistory.dateOfOrdering}</th>
     </tr>
     </#list>
     </tbody>
 </table>
 
-<br>
 </body>
 </html>
