@@ -8,10 +8,13 @@ public class OrderDish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     private Order order;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     private Dish dish;
+
     @Column(name = "count")
     private int count;
 

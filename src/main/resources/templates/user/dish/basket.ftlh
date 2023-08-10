@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:padding="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>New CategoryOfDish</title>
-    <link rel="stylesheet" href="/templates/assets/css/style.css">
+    <link rel="stylesheet" href="css/styles.css"></link>
+
     <style>
         table {
             border-collapse: collapse;
@@ -51,7 +52,7 @@
             border-radius: 10px;
             background:#DCDCDC;
             cursor:pointer;
-            font-size:1vw;
+            font-size:23px;
         }
 
         .button2 {
@@ -76,55 +77,80 @@
             font-size: 1.2rem;
         }
 
-
     </style>
 
 </head>
 <body>
 <header style="margin: 0; padding: 0; ">
-    <div id="menu"> <!-- Меню -->
+    <div id="menu">
         <ul>
-            <li ><a href="/">Главная</a></li>
-            <li><a href="/">Корзина</a></li>
+            <li><a href="/">Главная</a></li>
             <li><a href="/userSetting">Личный кабинет</a></li>
             <li><a href="/admin/dish/getAllDishCategory">Для администратора</a></li>
+            <li><a href="/logout">Выйти</a></li>
         </ul>
     </div>
 </header>
 
-<h1 align ="center">${dishCategory.name}</h1>
-
-<p align ="center">
-    <a href="/" ><< Назад</a>
-</p>
+<h1 align ="center">Мой заказ</h1>
 
 <table>
     <thead>
     <tr>
         <th>Наименование блюда</th>
-        <th>Описание блюда</th>
+        <th>Вес г. / объем мл.</th>
         <th>Цена, руб.</th>
-        <th>Добавить блюдо в заказ</th>
+        <th>Количество</th>
+        <th>Увеличить/<br>Уменьшить</th>
+        <th>Сумма, руб.</th>
     </tr>
     </thead>
+
     <tbody>
-    <#list allDishesIntoDishCategory as dish>
+    <#list listBasketDTO as basket>
     <tr>
         <th>
-            <a href="/infoDish/${dish.id}">${dish.name}</a>
-            </th>
-        <th>${dish.description}</th>
-        <th>${dish.price}</th>
-        <th>
-            <form action="/addDishToOrder/${dish.id}" method="post">
-                <input type="submit" value="Добавить в заказ">
+            <a href="/infoDish/${basket.dishId}">${basket.name}</a>
+        </th>
+        <th>${basket.weight}</th>
+        <th>${basket.price}</th>
+        <th>${basket.count}</th>
+        <th align ="center">
+            <form action="/addDishFromOrder/${basket.dishId}" method="post">
+                <input type="submit" value=" + " class="button2">
+            </form>
+            <form action="/removeDishFromOrder/${basket.dishId}" method="post">
+                <input type="submit" value=" - " class="button2">
             </form>
         </th>
+        <th>${basket.amount}</th>
     </tr>
     </#list>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th><h1>Итого:</h1></th>
+        <th><h2>${totalAmount} руб.</h2></th>
+    </tr>
     </tbody>
 </table>
 
 <br>
+<br>
+
+<div align="center">
+    <#if listBasketDTO?size!=0>
+    <#if order.id??>
+    <form action="/ordering/${order.id}" method="get">
+        <input type="submit" value="Оформить заказ" class="button">
+    </form>
+</#if>
+</#if>
+</div>
+
+<br>
+
 </body>
 </html>

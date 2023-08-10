@@ -1,6 +1,7 @@
 package com.raiko.project.myCafe.controllers;
 
 
+import com.raiko.project.myCafe.dtos.GetAllDishOfCategoryDTO;
 import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.models.DishCategory;
 import com.raiko.project.myCafe.services.impl.DishCategoryServiceImpl;
@@ -10,7 +11,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -35,10 +38,19 @@ public class AdminDishController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("dish") Dish dish, @RequestParam(name = "dishCategory") Long dishCategoryId) {
+    public String save(@ModelAttribute("dish") Dish dish,
+                       @RequestParam(name = "dishCategory") Long dishCategoryId,
+                       @RequestParam("file") MultipartFile file) throws IOException {
         DishCategory dishCategoryById = dishCategoryService.getDishCategoryById(dishCategoryId);
         dish.setDishCategory(dishCategoryById);
-        dishService.addDish(dish);
+        dishService.addDish(dish, file);
+        return "redirect:/admin/dish/getAllDishOfCategory/" + dishCategoryId;
+//        return "redirect:/admin/dish/getAllDishCategory";
+    }
+
+    @PostMapping("/deleteDish/{dishId}")
+    public String deleteDish(@PathVariable Long dishId) {
+        dishService.deleteDish(dishId);
         return "redirect:/admin/dish/getAllDishCategory";
     }
 
@@ -70,8 +82,10 @@ public class AdminDishController {
 
     @GetMapping("/getAllDishOfCategory/{id}")
     public String showAllDishesIntoDishCategory(@PathVariable("id") Long id, Model model) {
-        List<Dish> allDishesIntoDishCategory = dishCategoryService.getAllDishesOfDishCategory(id);
-        model.addAttribute("allDishesIntoDishCategory", allDishesIntoDishCategory);
+        List<GetAllDishOfCategoryDTO> dishDTO = dishCategoryService.getAllDishesOfDishCategoryDTO(id);
+        model.addAttribute("allDishesIntoDishCategory", dishDTO);
+        DishCategory dishCategory = dishCategoryService.getDishCategoryById(id);
+        model.addAttribute("dishCategory", dishCategory);
         return "admin/getAllDishOfCategory";
     }
 

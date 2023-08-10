@@ -3,7 +3,6 @@ package com.raiko.project.myCafe.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "dishes")
@@ -19,17 +18,91 @@ public class Dish {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "weight", nullable = false)
+    private Integer weight;
+
     @Column(name = "price")
     private Double price;
-
-    @Column(name = "image")
-    private String image;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish", orphanRemoval = true)
     private List<OrderDish> orderDishList = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private DishCategory dishCategory;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dish")
+    private List<Image> images = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dish")
+    private List<Review> reviews = new ArrayList<>();
+
+    public Dish() {
+
+    }
+
+    public Dish(Long id,
+                String name,
+                String description,
+                Integer weight,
+                Double price,
+                List<OrderDish> orderDishList,
+                DishCategory dishCategory,
+                List<Image> images,
+                List<Review> reviews) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.weight = weight;
+        this.price = price;
+        this.orderDishList = orderDishList;
+        this.dishCategory = dishCategory;
+        this.images = images;
+        this.reviews = reviews;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -51,85 +124,11 @@ public class Dish {
         this.dishCategory = dishCategory;
     }
 
-    public Dish() {
-
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public Dish(Long id,
-                String name,
-                String description,
-                Double price,
-                String image,
-                List<OrderDish> orderDishList,
-                DishCategory dishCategory) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-        this.orderDishList = orderDishList;
-        this.dishCategory = dishCategory;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Dish dish = (Dish) o;
-        return Objects.equals(id, dish.id) && Objects.equals(name, dish.name) && Objects.equals(description, dish.description) && Objects.equals(price, dish.price) && Objects.equals(image, dish.image) && Objects.equals(orderDishList, dish.orderDishList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, price, image, orderDishList);
-    }
-
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                ", orderDishList=" + orderDishList +
-                '}';
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

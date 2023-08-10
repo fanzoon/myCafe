@@ -10,9 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -23,9 +21,6 @@ public class OrderServiceImpl implements OrderService {
     private DishRepository dishRepository;
     @Autowired
     private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderDishRepository orderDishRepository;
 
     @Autowired
     private OrderStatusRepository orderStatusRepository;
@@ -40,7 +35,6 @@ public class OrderServiceImpl implements OrderService {
     public Dish addOrder(Long dishId) {
         Order order = getOrder();
 
-
         Dish dish = dishRepository.findById(dishId).orElseThrow(() -> new NotFindDishException("Нет такого блюда"));
         List<OrderDish> orderDishList = order.getOrderDishList();
 
@@ -53,7 +47,6 @@ public class OrderServiceImpl implements OrderService {
                 break;
             }
         }                                       // проверили
-
         if (isDishOfThisOrder == false) {
             OrderDish orderDish = new OrderDish();
             orderDish.setCount(1);

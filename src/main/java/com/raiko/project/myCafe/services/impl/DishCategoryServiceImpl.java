@@ -1,5 +1,6 @@
 package com.raiko.project.myCafe.services.impl;
 
+import com.raiko.project.myCafe.dtos.GetAllDishOfCategoryDTO;
 import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.models.DishCategory;
 import com.raiko.project.myCafe.repositories.DishCategoryRepository;
@@ -19,6 +20,7 @@ public class DishCategoryServiceImpl implements DishCategoryService {
 
     @Autowired
     private DishRepository dishRepository;
+
 
     @Override
     public DishCategory addCategory(DishCategory dishCategory) {
@@ -40,11 +42,6 @@ public class DishCategoryServiceImpl implements DishCategoryService {
     @Override
     public List<DishCategory> getAllDishCategory() {
         List<DishCategory> dishCategoryList = dishCategoryRepository.findAll();
-//        List<DishCategory> dishCategories = new ArrayList<>();
-//        for (DishCategory dishcategory: dishCategoryList) {
-//            if (dishcategory.isActivity() == true)
-//                dishCategories.add(dishcategory);
-//        }
         return dishCategoryList;
     }
 
@@ -52,6 +49,30 @@ public class DishCategoryServiceImpl implements DishCategoryService {
     public List<Dish> getAllDishesOfDishCategory(Long id) {
         DishCategory dishCategory = dishCategoryRepository.findById(id).get();
         return dishRepository.findAllByDishCategory(dishCategory);
+    }
+
+    @Override
+    public List<GetAllDishOfCategoryDTO> getAllDishesOfDishCategoryDTO(Long id) {
+        List<Dish> allDishesOfDishCategory = getAllDishesOfDishCategory(id);
+        List<GetAllDishOfCategoryDTO> getAllDishOfCategoryDTOList = new ArrayList<>();
+        for (Dish dish : allDishesOfDishCategory) {
+            GetAllDishOfCategoryDTO dto = new GetAllDishOfCategoryDTO();
+            dto.setId(dish.getId());
+            dto.setName(dish.getName());
+            dto.setWeight(dish.getWeight());
+            dto.setDescription(dish.getDescription());
+            dto.setPrice(dish.getPrice());
+            dto.setActivity(dish.getDishCategory().isActivity());
+//            Optional<Image> byDish = imageRepository.findByDish(dish);
+//            if (byDish.isPresent()){
+//                dto.setImageId(byDish.get().getId());
+//            }
+            if (!dish.getImages().isEmpty()) {
+                dto.setImageId(dish.getImages().get(0).getId());
+            }
+            getAllDishOfCategoryDTOList.add(dto);
+        }
+        return getAllDishOfCategoryDTOList;
     }
 
     @Override

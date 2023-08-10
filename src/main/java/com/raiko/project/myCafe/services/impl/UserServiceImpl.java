@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
-
 
     @Override
     public Boolean create(User user) {
@@ -43,9 +41,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setDateOfCreate(LocalDate.now());
         user.setBan(false);
-
         user.setUserRole(userRole);
-
         User save = userRepository.save(user);
         logger.info("Добавлен новый user: " + save.getLogin());
         return true;

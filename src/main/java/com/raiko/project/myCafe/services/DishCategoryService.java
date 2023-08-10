@@ -1,5 +1,6 @@
 package com.raiko.project.myCafe.services;
 
+import com.raiko.project.myCafe.dtos.GetAllDishOfCategoryDTO;
 import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.models.DishCategory;
 
@@ -16,6 +17,8 @@ public interface DishCategoryService {
     List<DishCategory> getAllDishCategory();
 
     List<Dish> getAllDishesOfDishCategory(Long id);
+
+    List<GetAllDishOfCategoryDTO> getAllDishesOfDishCategoryDTO(Long id);
 
     void changeStatusDishCategory(Long id);
 }

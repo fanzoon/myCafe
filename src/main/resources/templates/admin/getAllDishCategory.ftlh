@@ -56,6 +56,11 @@
             <a href="/admin/dish/updateCategory/${dishCategory.id}">Изменить категорию</a>
         </th>
         <th>
+            <#if dishCategory.activity>
+            активно
+            <#else> неактивно
+        </#if>
+
             <form method="post" action="/admin/dish/changeStatusDishCategory/${dishCategory.id}">
                 <input type="submit" value="Изменить активность">
             </form>

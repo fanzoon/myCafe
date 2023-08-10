@@ -1,7 +1,6 @@
 package com.raiko.project.myCafe.services.impl;
 
 import com.raiko.project.myCafe.dtos.BasketDTO;
-import com.raiko.project.myCafe.exceptions.NotFindDishException;
 import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.models.Order;
 import com.raiko.project.myCafe.models.OrderDish;
@@ -9,18 +8,13 @@ import com.raiko.project.myCafe.models.User;
 import com.raiko.project.myCafe.repositories.OrderRepository;
 import com.raiko.project.myCafe.services.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BasketServiceImpl implements BasketService {
-
-    @Autowired
-    private OrderRepository orderRepository;
 
     @Autowired
     private OrderServiceImpl orderService;
@@ -36,6 +30,7 @@ public class BasketServiceImpl implements BasketService {
                 Dish dish = orderDish.getDish();
                 basketDTO.setDishId(dish.getId());
                 basketDTO.setName(dish.getName());
+                basketDTO.setWeight(dish.getWeight());
                 basketDTO.setDescription(dish.getDescription());
                 basketDTO.setPrice(dish.getPrice());
                 basketDTO.setCount(orderDish.getCount());

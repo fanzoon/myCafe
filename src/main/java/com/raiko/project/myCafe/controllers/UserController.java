@@ -1,14 +1,10 @@
 package com.raiko.project.myCafe.controllers;
 
-import com.raiko.project.myCafe.models.Contact;
 import com.raiko.project.myCafe.models.User;
-import com.raiko.project.myCafe.services.ContactTypeService;
 import com.raiko.project.myCafe.services.impl.ContactTypeServiceImpl;
 import com.raiko.project.myCafe.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -39,5 +35,4 @@ public class UserController {
         }
         return "registration";
     }
-
 }

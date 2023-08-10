@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +37,6 @@ public class ContactController {
     @PostMapping("/addContact")
     public String saveContact(@ModelAttribute("contact") Contact contact) {
         contactService.addContact(contact);
-
         return "redirect:/userSetting";
     }
 

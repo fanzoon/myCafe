@@ -1,7 +1,9 @@
 package com.raiko.project.myCafe.services;
 
 import com.raiko.project.myCafe.models.Dish;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface DishService {
@@ -10,5 +12,7 @@ public interface DishService {
 
     Dish getDishById(Long id);
 
-    Dish addDish(Dish newDish);
+    Dish addDish(Dish newDish, MultipartFile file) throws IOException;
+
+    void deleteDish(Long id);
 }

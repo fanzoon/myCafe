@@ -21,7 +21,7 @@
         <select name="paymentTypeId" id="paymentTypeId">
             <#list payments as payment>
             <option value="${payment.id}">${payment.name}</option>
-        </#list>
+            </#list>
         </select>
     </p>
 

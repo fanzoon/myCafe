@@ -28,18 +28,26 @@
         tr:hover {
             background-color: #f5f5f5;
         }
+
+        img {
+            height: 220px;
+            width: 330px;
+        }
     </style>
 
 </head>
 <body>
 
-<h2>Список блюд в категории</h2>
+<h2>${dishCategory.name}</h2>
 <table>
     <thead>
     <tr>
         <th>Наименование блюда</th>
         <th>Описание блюда</th>
+        <th>Вес г. / объем мл.</th>
         <th>Цена, руб.</th>
+        <th>Удалить блюдо</th>
+        <th>Фото</th>
     </tr>
     </thead>
     <tbody>
@@ -47,9 +55,20 @@
     <tr>
         <th>${dish.name}</th>
         <th>${dish.description}</th>
+        <th>${dish.weight}</th>
         <th>${dish.price}</th>
-    </tr>
+        <th>
+            <form method="post" action="/deleteDish/${dish.id}">
+                <input type="submit" value="Удалить блюдо">
+            </form>
+        </th>
+        <#if dish.imageId??>
+        <th><img src="/images/${dish.imageId}"></th>
+        </#if>
+
+
     </#list>
+    </tr>
     </tbody>
 </table>
 
@@ -58,7 +77,7 @@
 </p>
 
 <p>
-    <a href="/admin/dish/getAllDishCategory">Вернуться назад</a>
+    <a href="/admin/dish/getAllDishCategory">Вернуться к списку категорий</a>
 </p>
 
 </body>

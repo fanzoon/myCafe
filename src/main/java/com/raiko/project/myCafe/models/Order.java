@@ -27,7 +27,6 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = true)
     private List<OrderDish> orderDishList = new ArrayList<>();
 
-
     public Order() {
     }
 
@@ -55,7 +54,6 @@ public class Order {
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
-
 
     public DeliveryType getDeliveriesType() {
         return deliveriesType;
