@@ -15,4 +15,6 @@ public interface DishService {
     Dish addDish(Dish newDish, MultipartFile file) throws IOException;
 
     void deleteDish(Long id);
+
+    Dish updateDish(Dish dish);
 }

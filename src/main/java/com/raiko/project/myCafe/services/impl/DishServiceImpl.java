@@ -44,6 +44,12 @@ public class DishServiceImpl implements DishService {
         dishRepository.deleteById(id);
     }
 
+    @Override
+    public Dish updateDish(Dish dish) {
+        Dish changeDish = dishRepository.save(dish);
+        return changeDish;
+    }
+
     private Image convert(MultipartFile multipartFile) throws IOException {
         Image image = new Image();
         image.setName(multipartFile.getName());

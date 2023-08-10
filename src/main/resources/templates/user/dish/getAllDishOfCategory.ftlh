@@ -94,10 +94,6 @@
 
 <h1 align ="center">${dishCategory.name}</h1>
 
-<p align ="center">
-    <a href="/" ><< Назад</a>
-</p>
-
 <table>
     <thead>
     <tr>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>New CategoryOfDish</title>
-    <link rel="stylesheet" href="css/styles.css"></link>
+    <link rel="stylesheet" href="css/styles.css">
 
     <style>
         table {
@@ -76,7 +76,6 @@
         tbody {
             font-size: 1.2rem;
         }
-
     </style>
 </head>
 <body>

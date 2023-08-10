@@ -45,13 +45,31 @@ public class AdminDishController {
         dish.setDishCategory(dishCategoryById);
         dishService.addDish(dish, file);
         return "redirect:/admin/dish/getAllDishOfCategory/" + dishCategoryId;
-//        return "redirect:/admin/dish/getAllDishCategory";
     }
 
-    @PostMapping("/deleteDish/{dishId}")
-    public String deleteDish(@PathVariable Long dishId) {
-        dishService.deleteDish(dishId);
-        return "redirect:/admin/dish/getAllDishCategory";
+//    @PostMapping("/deleteDish/{dishId}")
+//    public String deleteDish(@PathVariable Long dishId) {
+//        dishService.deleteDish(dishId);
+//        return "redirect:/admin/dish/getAllDishCategory";
+//    }
+
+    @GetMapping("/updateDish/{dishId}")
+    public String updateDish(@PathVariable Long dishId, Model model) {
+        Dish dish = dishService.getDishById(dishId);
+        model.addAttribute("dish", dish);
+        List<DishCategory> categories = dishCategoryService.getAllDishCategory();
+        model.addAttribute("categories", categories);
+        return "admin/updateDish";
+    }
+
+    @PostMapping("/updateDish")
+    public String saveUpdateDish(@ModelAttribute("dish") Dish dish,
+                                 @RequestParam(name = "dishCategory") Long dishCategoryId,
+                                 @RequestParam("file") MultipartFile file) throws IOException {
+        DishCategory dishCategoryById = dishCategoryService.getDishCategoryById(dishCategoryId);
+        dish.setDishCategory(dishCategoryById);
+        dishService.addDish(dish, file);
+        return "redirect:/admin/dish/getAllDishOfCategory/" + dishCategoryId;
     }
 
     @GetMapping("/addCategory")

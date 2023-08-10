@@ -7,7 +7,7 @@
             background-color: rgba(250, 240, 230, 1);
             margin: auto;
         }
-        
+
         li {
             display: inline-block;
             vertical-align: middle;
