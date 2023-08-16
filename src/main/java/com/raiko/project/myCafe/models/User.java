@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+//import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -16,41 +17,71 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "surName")
     private String surName;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private List<UserRole> userRoleList = new ArrayList<>();
+
     @Column(name = "login", unique = true)
     private String login;
+
     @Column(name = "password")
     private String password;
 
-    //    private List<Contact> contactList = new ArrayList<>();
     @Column(name = "dateOfCreate")
     private LocalDate dateOfCreate;
 
-    //    private avatar:
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private UserRole userRole;
+
     @Type(type = "org.hibernate.type.TrueFalseType")
     @Column(name = "ban", columnDefinition = "CHAR(1)", length = 1)
     private Boolean ban;
+
     @Column(name = "birthday")
     private LocalDate birthday;
 
-    @Column(name = "image")
-    private String image;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orderList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    List<Contact> contacts = new ArrayList<>();
+
     public User(){}
 
-    public List<UserRole> getUserRoleList() {
-        return userRoleList;
+    public User(Long id,
+                String name,
+                String surName,
+                UserRole userRole,
+                String login,
+                String password,
+                LocalDate dateOfCreate,
+                Boolean ban,
+                LocalDate birthday,
+                List<Order> orderList,
+                List<Contact> contacts) {
+        this.id = id;
+        this.name = name;
+        this.surName = surName;
+        this.userRole = userRole;
+        this.login = login;
+        this.password = password;
+        this.dateOfCreate = dateOfCreate;
+        this.ban = ban;
+        this.birthday = birthday;
+        this.orderList = orderList;
+        this.contacts = contacts;
+
     }
 
-    public void setUserRoleList(List<UserRole> userRoleList) {
-        this.userRoleList = userRoleList;
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public List<Order> getOrderList() {
@@ -61,29 +92,13 @@ public class User implements UserDetails {
         this.orderList = orderList;
     }
 
-    public User(Long id, String name, String surName, List<UserRole> userRoleList, String login, String password, LocalDate dateOfCreate, Boolean ban, LocalDate birthday, String image, List<Order> orderList) {
-        this.id = id;
-        this.name = name;
-        this.surName = surName;
-        this.userRoleList = userRoleList;
-        this.login = login;
-        this.password = password;
-        this.dateOfCreate = dateOfCreate;
-        this.ban = ban;
-        this.birthday = birthday;
-        this.image = image;
-        this.orderList = orderList;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public String getImage() {
-        return image;
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-
 
     public Long getId() {
         return id;
@@ -109,7 +124,6 @@ public class User implements UserDetails {
         this.surName = surName;
     }
 
-
     public String getLogin() {
         return login;
     }
@@ -118,13 +132,11 @@ public class User implements UserDetails {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.userRoleList;
+         List<UserRole> userRoleList = new ArrayList<>();
+         userRoleList.add(this.userRole);
+         return userRoleList;
     }
 
     @Override
@@ -152,17 +164,9 @@ public class User implements UserDetails {
         return !ban;
     }
 
-//    public boolean isUser() {
-//        return getRoles().contains(UserRole.ROLE_USER);
-//    }
-//
-//    public boolean isAdmin() {
-//        return getRoles().contains(UserRole.ROLE_ADMIN);
-//    }
-
-//    public boolean isUnregisteredRole() {
-//        return getRoles().contains(UserRole.UNREGISTERED_ROLE);
-//    }
+    public String getPassword() {
+        return password;
+    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -187,9 +191,7 @@ public class User implements UserDetails {
     public LocalDate getBirthday() {
         return birthday;
     }
-
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
-
 }

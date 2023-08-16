@@ -1,7 +1,5 @@
 package com.raiko.project.myCafe.models;
 
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,31 +18,51 @@ public class Dish {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "weight", nullable = false)
+    private Integer weight;
+
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "image")
-    private String image;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish", orphanRemoval = true)
     private List<OrderDish> orderDishList = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private DishCategory dishCategory;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dish")
+    private List<Image> images = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dish")
+    private List<Review> reviews = new ArrayList<>();
 
     public Dish() {
 
     }
 
-//    public Dish(Long id, String name, String description, Double price, String image) {
-//        this.id = id;
-//        this.name = name;
-//        this.description = description;
-//        this.price = price;
-//        this.image = image;
-//    }
+    public Dish(Long id,
+                String name,
+                String description,
+                Integer weight,
+                Double price,
+                List<OrderDish> orderDishList,
+                DishCategory dishCategory,
+                List<Image> images,
+                List<Review> reviews) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.weight = weight;
+        this.price = price;
+        this.orderDishList = orderDishList;
+        this.dishCategory = dishCategory;
+        this.images = images;
+        this.reviews = reviews;
+    }
 
     public Long getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -62,6 +80,14 @@ public class Dish {
         this.description = description;
     }
 
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
     public Double getPrice() {
         return price;
     }
@@ -70,13 +96,39 @@ public class Dish {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public List<OrderDish> getOrderDishList() {
+        return orderDishList;
+    }
+
+    public void setOrderDishList(List<OrderDish> orderDishList) {
+        this.orderDishList = orderDishList;
+    }
+
+    public DishCategory getDishCategory() {
+        return dishCategory;
+    }
+
+    public void setDishCategory(DishCategory dishCategory) {
+        this.dishCategory = dishCategory;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

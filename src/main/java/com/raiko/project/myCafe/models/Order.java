@@ -1,6 +1,7 @@
 package com.raiko.project.myCafe.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +13,51 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "dateOfOrdering")
+    private LocalDate dateOfOrdering;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private DeliveryType deliveriesType;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private PaymentType paymentType;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private OrderStatus orderStatus;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = true)
     private List<OrderDish> orderDishList = new ArrayList<>();
+
+    public Order() {
+    }
+
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public DeliveryType getDeliveriesType() {
+        return deliveriesType;
+    }
+
+    public void setDeliveriesType(DeliveryType deliveriesType) {
+        this.deliveriesType = deliveriesType;
+    }
 
     public Long getId() {
         return id;
@@ -40,5 +81,13 @@ public class Order {
 
     public void setOrderDishList(List<OrderDish> orderDishList) {
         this.orderDishList = orderDishList;
+    }
+
+    public LocalDate getDateOfOrdering() {
+        return dateOfOrdering;
+    }
+
+    public void setDateOfOrdering(LocalDate dateOfOrdering) {
+        this.dateOfOrdering = dateOfOrdering;
     }
 }

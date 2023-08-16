@@ -12,32 +12,32 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BasketServiceImpl implements BasketService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderServiceImpl orderService;
 
     @Override
     public List<BasketDTO> getAllBasketDTO(User user) {
         List <OrderDish> orderDishList;
         List<BasketDTO> basketDTOList = new ArrayList<>();
-        Optional<Order> orderByUserId = orderRepository.findByUserId(user.getId());
-        Order order = orderByUserId.orElse(null);
-        orderDishList = order.getOrderDishList();
-        for (OrderDish orderDish: orderDishList) {
-            BasketDTO basketDTO = new BasketDTO();
-            Dish dish = orderDish.getDish();
-            basketDTO.setDishId(dish.getId());
-            basketDTO.setName(dish.getName());
-            basketDTO.setDescription(dish.getDescription());
-            basketDTO.setPrice(dish.getPrice());
-            basketDTO.setCount(orderDish.getCount());
-            basketDTO.setAmount(dish.getPrice() * orderDish.getCount());
-            basketDTOList.add(basketDTO);
-        }
+        Order order = orderService.getOrder();
+            orderDishList = order.getOrderDishList();
+            for (OrderDish orderDish: orderDishList) {
+                BasketDTO basketDTO = new BasketDTO();
+                Dish dish = orderDish.getDish();
+                basketDTO.setDishId(dish.getId());
+                basketDTO.setName(dish.getName());
+                basketDTO.setWeight(dish.getWeight());
+                basketDTO.setDescription(dish.getDescription());
+                basketDTO.setPrice(dish.getPrice());
+                basketDTO.setCount(orderDish.getCount());
+                basketDTO.setAmount(dish.getPrice() * orderDish.getCount());
+                basketDTOList.add(basketDTO);
+            }
+
         return basketDTOList;
     }
 

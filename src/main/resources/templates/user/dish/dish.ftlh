@@ -82,11 +82,15 @@
         <th></th>
         <th></th>
         <th></th>
-        <th>Общая сумма</th>
+        <th>Итого:</th>
         <th>${totalAmount}</th>
     </tr>
     </tbody>
 </table>
+
+<th>
+    <a href="/admin/dish/getAllDishCategory">Для администратора</a>
+</th>
 
 </body>
 </html>
