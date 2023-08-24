@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form method="POST" action="/addReview">
+<form method="POST" action="/updateReview">
 
     <p>
         <label>Ваш отзыв:</label>

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class DeliveryTypeServiceImpl implements DeliveryTypeService {
-
     @Autowired
     private DeliveryTypeRepository deliveryTypeRepository;
 

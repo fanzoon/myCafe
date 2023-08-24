@@ -7,7 +7,6 @@ import com.raiko.project.myCafe.models.DishCategory;
 import java.util.List;
 
 public interface DishCategoryService {
-
     DishCategory addCategory(DishCategory dishCategory);
 
     DishCategory updateCategory(DishCategory dishCategory);

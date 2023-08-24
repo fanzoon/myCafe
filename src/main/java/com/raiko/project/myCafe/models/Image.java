@@ -32,15 +32,6 @@ public class Image {
     public Image() {
     }
 
-    public Image(Long id, String name, String originalFileName, String contentType, Long size, byte[] bytes, Dish dish) {
-        this.id = id;
-        this.name = name;
-        this.originalFileName = originalFileName;
-        this.contentType = contentType;
-        this.size = size;
-        this.bytes = bytes;
-        this.dish = dish;
-    }
 
     public Long getId() {
         return id;

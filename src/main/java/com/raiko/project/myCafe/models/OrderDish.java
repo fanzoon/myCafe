@@ -21,12 +21,6 @@ public class OrderDish {
     public OrderDish() {
     }
 
-    public OrderDish(Long id, Order order, Dish dish, int count) {
-        this.id = id;
-        this.order = order;
-        this.dish = dish;
-        this.count = count;
-    }
 
     public Long getId() {
         return id;

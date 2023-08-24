@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class ContactTypeServiceImpl implements ContactTypeService {
-
     @Autowired
     private ContactTypeRepository contactTypeRepository;
 

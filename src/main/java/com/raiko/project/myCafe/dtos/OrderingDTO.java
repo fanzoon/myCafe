@@ -9,12 +9,6 @@ public class OrderingDTO {
     public OrderingDTO() {
     }
 
-    public OrderingDTO(Long orderId, Long deliveryTypeId, Long paymentTypeId, String deliveryAddress) {
-        this.orderId = orderId;
-        this.deliveryTypeId = deliveryTypeId;
-        this.paymentTypeId = paymentTypeId;
-        this.deliveryAddress = deliveryAddress;
-    }
 
     public Long getOrderId() {
         return orderId;

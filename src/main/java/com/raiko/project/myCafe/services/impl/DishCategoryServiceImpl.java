@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class DishCategoryServiceImpl implements DishCategoryService {
-
     @Autowired
     private DishCategoryRepository dishCategoryRepository;
 
@@ -64,7 +63,6 @@ public class DishCategoryServiceImpl implements DishCategoryService {
         return allDishCategoryIsActive;
     }
 
-
     @Override
     public List<Dish> getAllDishesOfDishCategory(Long id) {
         DishCategory dishCategory = dishCategoryRepository.findById(id).get();
@@ -85,7 +83,6 @@ public class DishCategoryServiceImpl implements DishCategoryService {
                 .map(dish -> transformerDishToGetAllDishesOfDishCategoryDTO.transformer(dish))
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public void changeStatusDishCategory(Long id) {

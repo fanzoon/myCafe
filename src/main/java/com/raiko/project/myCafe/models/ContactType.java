@@ -21,11 +21,6 @@ public class ContactType {
     public ContactType() {
     }
 
-    public ContactType(Long id, String name, List<Contact> contacts) {
-        this.id = id;
-        this.name = name;
-        this.contacts = contacts;
-    }
 
     public Long getId() {
         return id;

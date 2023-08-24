@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/styles/style.css">
     <style>
         table {
-        table {
             border-collapse: collapse;
             margin: 20px 0;
             margin: auto;
@@ -29,6 +28,10 @@
         body {
             background-color: #faf0e6;
             margin: auto;
+        }
+        img {
+            height: 220px;
+            width: 330px;
         }
 
         button {

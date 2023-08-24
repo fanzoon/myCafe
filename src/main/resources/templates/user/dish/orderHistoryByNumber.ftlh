@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>New CategoryOfDish</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"></link>
 
     <style>
         table {
@@ -31,8 +31,13 @@
             margin: auto;
         }
 
-        button {
-            font-size: 20px;
+        .button {
+            height:75px;
+            width: 210px;
+            border-radius: 10px;
+            background:#DCDCDC;
+            cursor:pointer;
+            font-size:21px;
         }
 
         li {
@@ -107,15 +112,15 @@
 <header style="margin: 0; padding: 0; ">
     <div id="menu">
         <ul>
-            <li><a href="/admin/dish/mainAdmin">Главная</a></li>
-            <li><a href="/admin/dish/menuDishForAdmin">Меню</a></li>
-            <li><a href="/admin/dish/basketForAdmin">Корзина</a></li>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/menuDish">Меню</a></li>
+            <li><a href="/basket">Корзина</a></li>
             <li>
                 <div class="dropdown">
-                    <button class="dropbtn">${user.login}</button>
+                    <button class="dropbtn">${user.name}</button>
                     <div class="dropdown-content">
-                        <a href="/admin/dish/adminSetting">Личный кабинет</a>
-                        <a href="/admin/dish/getAllDishCategory">Права администратора</a>
+                        <a href="/userSetting">Личный кабинет</a>
+                        <a href="/historyOfOrders">История заказов</a>
                         <a href="/logout">Выйти</a>
                     </div>
                 </div>
@@ -124,32 +129,41 @@
     </div>
 </header>
 <br>
+<h1 align ="center">Заказ №:${orderId}</h1>
 
-<h1 align="center">Добро пожаловать в онлайн кафе "MyCafe"</h1>
-<br>
-<br>
-
-
-<h1 align ="center">Меню</h1>
 <table>
     <thead>
     <tr>
-        <th>Наименование категории</th>
-        <th>Позиция категории</th>
-        <th>Список блюд</th>
+        <th>Наименование блюда</th>
+        <th>Вес г. / объем мл.</th>
+        <th>Цена, руб.</th>
+        <th>Количество</th>
+        <th>Сумма, руб.</th>
     </tr>
     </thead>
+
     <tbody>
-    <#list dishCategories as dishCategory>
+    <#list listBasketDTO as basket>
     <tr>
-        <th>${dishCategory.name}</th>
-        <th>${dishCategory.numberPriority}</th>
         <th>
-            <a href="/admin/dish/getAllDishOfCategoryIsActiveForAdmin/${dishCategory.id}">Посмотреть список блюд</a>
+            <a href="/infoDish/${basket.dishId}">${basket.name}</a>
         </th>
+        <th>${basket.weight}</th>
+        <th>${basket.price}</th>
+        <th>${basket.count}</th>
+        <th>${basket.amount}</th>
     </tr>
     </#list>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th><h1>Итого:</h1></th>
+        <th><h2>${totalAmount} руб.</h2></th>
+    </tr>
     </tbody>
 </table>
+
+
 </body>
 </html>

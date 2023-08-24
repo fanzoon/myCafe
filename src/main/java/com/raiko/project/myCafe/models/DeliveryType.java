@@ -14,10 +14,6 @@ public class DeliveryType {
     public DeliveryType() {
     }
 
-    public DeliveryType(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Long getId() {
         return id;

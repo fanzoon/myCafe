@@ -89,6 +89,17 @@ public class OrderController {
         return "user/dish/historyOrder";
     }
 
+    @GetMapping("/historyOfOrders/{orderId}")
+    public String historyOfOrdersByNumber(@PathVariable("orderId") Long orderId, Model model) {
+        List<BasketDTO> basketDTOs = orderService.getOrderById(orderId);
+        model.addAttribute("listBasketDTO", basketDTOs);
+        Double totalAmount = basketService.getTotalAmount(basketDTOs);
+        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("orderId", orderId);
+        return "user/dish/orderHistoryByNumber";
+    }
+
+
     @ModelAttribute("user")
     public User  detUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

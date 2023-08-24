@@ -25,13 +25,6 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, String message, Integer mark, Dish dish, User user) {
-        this.id = id;
-        this.message = message;
-        this.mark = mark;
-        this.dish = dish;
-        this.user = user;
-    }
 
     public Long getId() {
         return id;

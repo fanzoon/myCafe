@@ -1,11 +1,13 @@
 package com.raiko.project.myCafe.services.impl;
 
+import com.raiko.project.myCafe.dtos.BasketDTO;
 import com.raiko.project.myCafe.dtos.OrderHistoryDTO;
 import com.raiko.project.myCafe.dtos.OrderingDTO;
 import com.raiko.project.myCafe.exceptions.NotFindDishException;
 import com.raiko.project.myCafe.models.*;
 import com.raiko.project.myCafe.repositories.*;
 import com.raiko.project.myCafe.services.OrderService;
+import com.raiko.project.myCafe.transformers.TransformerOrderDishToBasketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +21,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderServiceImpl implements OrderService {
-
     @Autowired
     private DishRepository dishRepository;
     @Autowired
@@ -35,7 +36,9 @@ public class OrderServiceImpl implements OrderService {
     private  DeliveryTypeRepository deliveryTypeRepository;
 
     @Autowired
-    private BasketServiceImpl basketService;
+    private TransformerOrderDishToBasketDTO transformerOrderDishToBasketDTO;
+
+
 
     @Override
     public Dish addOrder(Long dishId) {
@@ -117,6 +120,14 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<BasketDTO> getOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        List<OrderDish> orderDishList = order.getOrderDishList();
+        List<BasketDTO> collect = orderDishList.stream().map(orderDish -> transformerOrderDishToBasketDTO.transform(orderDish)).collect(Collectors.toList());
+        return collect;
     }
 
     private Double countAmountInOrder(List<OrderDish> orderDishList) {

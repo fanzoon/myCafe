@@ -5,17 +5,12 @@ import javax.validation.constraints.Size;
 public class ContactDTO {
     private String contactType;
 
-
     @Size(min = 5, max = 20)
     private String name;
 
     public ContactDTO() {
     }
 
-    public ContactDTO(String contactType, String name) {
-        this.contactType = contactType;
-        this.name = name;
-    }
 
     public String getContactType() {
         return contactType;

@@ -12,13 +12,6 @@ public class OrderHistoryDTO {
     public OrderHistoryDTO() {
     }
 
-    public OrderHistoryDTO(Integer number, String deliveriesType, String paymentType, Double amount, LocalDate dateOfOrdering) {
-        this.number = number;
-        this.deliveriesType = deliveriesType;
-        this.paymentType = paymentType;
-        this.amount = amount;
-        this.dateOfOrdering = dateOfOrdering;
-    }
 
     public Integer getNumber() {
         return number;

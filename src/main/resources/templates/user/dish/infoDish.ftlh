@@ -143,9 +143,12 @@
     <b>Цена:</b> ${dish.price} руб.<br>
     <a href="/addReview/${dish.id}"><h2><b>Оставить отзыв</b></h2></a>
     <#list reviewList as review>
+    <#if review.user.id == user.id>
     <a href="/updateReview/${review.id}"><h2><b>Изменить отзыв</b></h2></a>
+</#if>
     </#list>
     <br>
+
 
     <form action="/addDishToOrder/${dish.id}" method="post">
         <input type="submit" value="Добавить в Корзину" class="button">

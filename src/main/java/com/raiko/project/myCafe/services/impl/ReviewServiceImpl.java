@@ -44,7 +44,6 @@ public class ReviewServiceImpl implements ReviewService {
         reviewRepository.save(review);
     }
 
-
     @Override
     public List<Review> getAllReviewByDish(Dish dish) {
         return reviewRepository.findAllByDish(dish);

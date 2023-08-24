@@ -123,7 +123,7 @@
     <tbody>
     <#list orderHistoryDTOList as orderHistory>
     <tr>
-        <th>${orderHistory.number}</th>
+        <th><a href="/historyOfOrders/${orderHistory.number}">${orderHistory.number}</a></th>
         <th>${orderHistory.deliveriesType}</th>
         <th>${orderHistory.paymentType}</th>
         <th>${orderHistory.amount}</th>

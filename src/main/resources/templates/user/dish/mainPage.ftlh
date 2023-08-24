@@ -47,15 +47,6 @@
             color: #cfc6b2;
             font-size: 1.1rem;
         }
-        .button {
-            height:75px;
-            width: 200px;
-            border-radius: 10px;
-            background:#DCDCDC;
-            cursor:pointer;
-            font-size:23px;
-        }
-
         a {
             text-decoration: none;
             color: rgba(134, 134, 200, 1);
@@ -112,9 +103,7 @@
         .dropdown:hover .dropdown-content {display: block;}
     </style>
 </head>
-
 <body>
-
 <header style="margin: 0; padding: 0; ">
     <div id="menu">
         <ul>
@@ -140,6 +129,7 @@
 <br>
 <br>
 
+
 <h1 align ="center">Меню</h1>
 <table>
     <thead>
@@ -161,6 +151,5 @@
     </#list>
     </tbody>
 </table>
-
 </body>
 </html>

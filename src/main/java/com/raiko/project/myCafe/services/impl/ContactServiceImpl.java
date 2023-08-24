@@ -2,8 +2,6 @@ package com.raiko.project.myCafe.services.impl;
 
 import com.raiko.project.myCafe.dtos.ContactDTO;
 import com.raiko.project.myCafe.models.Contact;
-import com.raiko.project.myCafe.models.Dish;
-import com.raiko.project.myCafe.models.DishCategory;
 import com.raiko.project.myCafe.models.User;
 import com.raiko.project.myCafe.repositories.ContactRepository;
 import com.raiko.project.myCafe.services.ContactService;
@@ -15,7 +13,6 @@ import java.util.List;
 
 @Service
 public class ContactServiceImpl implements ContactService {
-
     @Autowired
     private ContactRepository contactRepository;
 

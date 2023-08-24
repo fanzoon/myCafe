@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TransformerUserDTOToUser {
-
     public User transform(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());

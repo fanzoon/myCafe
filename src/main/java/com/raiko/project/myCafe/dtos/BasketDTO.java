@@ -12,21 +12,6 @@ public class BasketDTO {
     public BasketDTO() {
     }
 
-    public BasketDTO(Long dishId,
-                     String name,
-                     String description,
-                     int weight,
-                     Double price,
-                     int count,
-                     Double amount) {
-        this.dishId = dishId;
-        this.name = name;
-        this.description = description;
-        this.weight = weight;
-        this.price = price;
-        this.count = count;
-        this.amount = amount;
-    }
 
     public Long getDishId() {
         return dishId;

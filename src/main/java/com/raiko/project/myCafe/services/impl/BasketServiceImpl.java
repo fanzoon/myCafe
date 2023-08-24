@@ -5,7 +5,6 @@ import com.raiko.project.myCafe.models.Dish;
 import com.raiko.project.myCafe.models.Order;
 import com.raiko.project.myCafe.models.OrderDish;
 import com.raiko.project.myCafe.models.User;
-import com.raiko.project.myCafe.repositories.OrderRepository;
 import com.raiko.project.myCafe.services.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,11 +38,6 @@ public class BasketServiceImpl implements BasketService {
             }
         return basketDTOList;
     }
-
-//    BasketDTO getBasketDTOByOrderId(User user,Long orderId) {
-//        List<BasketDTO> basketDTOListByUser = getAllBasketDTO(user);
-//        BasketDTO basketDTO =
-//    }
 
     @Override
     public Double getTotalAmount(List<BasketDTO> basketDTOs) {
