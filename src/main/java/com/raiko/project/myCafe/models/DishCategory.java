@@ -21,14 +21,6 @@ public class DishCategory {
     @Column(name = "activity")
     private boolean activity;
 
-    public boolean isActivity() {
-        return activity;
-    }
-
-    public void setActivity(boolean activity) {
-        this.activity = activity;
-    }
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dishCategory")
     private List<Dish> dish = new ArrayList<>();
 
@@ -57,6 +49,14 @@ public class DishCategory {
 
     public void setNumberPriority(Integer numberPriority) {
         this.numberPriority = numberPriority;
+    }
+
+    public boolean isActivity() {
+        return activity;
+    }
+
+    public void setActivity(boolean activity) {
+        this.activity = activity;
     }
 
     public List<Dish> getDish() {

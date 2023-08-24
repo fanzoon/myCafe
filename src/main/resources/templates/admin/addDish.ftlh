@@ -23,6 +23,8 @@
         <label for="price">Enter price</label>
         <input type="number" name="price" id="price" step="0.01"/>
     </p>
+
+
     <p>
         <label for="dishCategory">Enter dish Category</label>
         <select name="dishCategory" id="dishCategory">

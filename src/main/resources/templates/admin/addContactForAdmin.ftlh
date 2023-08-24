@@ -16,7 +16,7 @@
 
 
 
-<form action="/addContact" method="post">
+<form action="/admin/dish/addContactForAdmin" method="post">
     Выберите тип контакта:<br>
     <select name="contactType">
         <#list contactTypes as contactType>

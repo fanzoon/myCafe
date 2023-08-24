@@ -8,7 +8,6 @@
 
 <form method="POST" action="/addReview">
 
-
     <p>
         <label>Ваш отзыв:</label>
         <textarea name="message" rows="4" cols="50"></textarea>

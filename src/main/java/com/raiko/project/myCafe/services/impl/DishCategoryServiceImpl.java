@@ -6,11 +6,15 @@ import com.raiko.project.myCafe.models.DishCategory;
 import com.raiko.project.myCafe.repositories.DishCategoryRepository;
 import com.raiko.project.myCafe.repositories.DishRepository;
 import com.raiko.project.myCafe.services.DishCategoryService;
+import com.raiko.project.myCafe.transformers.TransformerDishToGetAllDishesOfDishCategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DishCategoryServiceImpl implements DishCategoryService {
@@ -20,6 +24,9 @@ public class DishCategoryServiceImpl implements DishCategoryService {
 
     @Autowired
     private DishRepository dishRepository;
+
+    @Autowired
+    private TransformerDishToGetAllDishesOfDishCategoryDTO transformerDishToGetAllDishesOfDishCategoryDTO;
 
 
     @Override
@@ -46,6 +53,19 @@ public class DishCategoryServiceImpl implements DishCategoryService {
     }
 
     @Override
+    public List<DishCategory> getAllDishCategoryIsActive() {
+        List<DishCategory> allDishCategory = getAllDishCategory();
+        List<DishCategory> allDishCategoryIsActive = new ArrayList<>();
+        for (DishCategory dishcategory : allDishCategory) {
+            if (dishcategory.isActivity() == true)
+                allDishCategoryIsActive.add(dishcategory);
+        }
+        Collections.sort(allDishCategoryIsActive, Comparator.comparingInt(DishCategory::getNumberPriority));
+        return allDishCategoryIsActive;
+    }
+
+
+    @Override
     public List<Dish> getAllDishesOfDishCategory(Long id) {
         DishCategory dishCategory = dishCategoryRepository.findById(id).get();
         return dishRepository.findAllByDishCategory(dishCategory);
@@ -54,26 +74,18 @@ public class DishCategoryServiceImpl implements DishCategoryService {
     @Override
     public List<GetAllDishOfCategoryDTO> getAllDishesOfDishCategoryDTO(Long id) {
         List<Dish> allDishesOfDishCategory = getAllDishesOfDishCategory(id);
-        List<GetAllDishOfCategoryDTO> getAllDishOfCategoryDTOList = new ArrayList<>();
-        for (Dish dish : allDishesOfDishCategory) {
-            GetAllDishOfCategoryDTO dto = new GetAllDishOfCategoryDTO();
-            dto.setId(dish.getId());
-            dto.setName(dish.getName());
-            dto.setWeight(dish.getWeight());
-            dto.setDescription(dish.getDescription());
-            dto.setPrice(dish.getPrice());
-            dto.setActivity(dish.getDishCategory().isActivity());
-//            Optional<Image> byDish = imageRepository.findByDish(dish);
-//            if (byDish.isPresent()){
-//                dto.setImageId(byDish.get().getId());
-//            }
-            if (!dish.getImages().isEmpty()) {
-                dto.setImageId(dish.getImages().get(0).getId());
-            }
-            getAllDishOfCategoryDTOList.add(dto);
-        }
-        return getAllDishOfCategoryDTOList;
+        return allDishesOfDishCategory.stream().map(dish -> transformerDishToGetAllDishesOfDishCategoryDTO.transformer(dish)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<GetAllDishOfCategoryDTO> getAllDishesOfDishCategoryDTOIsActive(Long id) {
+        List<Dish> allDishesOfDishCategory = getAllDishesOfDishCategory(id);
+        return allDishesOfDishCategory.stream()
+                .filter(dish -> dish.isActivity())
+                .map(dish -> transformerDishToGetAllDishesOfDishCategoryDTO.transformer(dish))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public void changeStatusDishCategory(Long id) {

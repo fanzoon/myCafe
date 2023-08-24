@@ -37,7 +37,21 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public void updateReview(String message, Integer mark, Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Вашего отзыва не видно"));
+        review.setMessage(message);
+        review.setMark(mark);
+        reviewRepository.save(review);
+    }
+
+
+    @Override
     public List<Review> getAllReviewByDish(Dish dish) {
         return reviewRepository.findAllByDish(dish);
+    }
+
+    @Override
+    public Review getReviewById(Long reviewId) {
+        return reviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Вашего отзыва не видно"));
     }
 }

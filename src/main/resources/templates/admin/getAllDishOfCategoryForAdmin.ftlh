@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:padding="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <title>New CategoryOfDish</title>
+    <link rel="stylesheet" href="/styles/style.css">
     <style>
         table {
             border-collapse: collapse;
@@ -46,18 +46,14 @@
             color: #cfc6b2;
             font-size: 1.1rem;
         }
-        .button {
-            height:75px;
-            width: 200px;
-            border-radius: 10px;
-            background:#DCDCDC;
-            cursor:pointer;
-            font-size:23px;
+        img {
+            height: 220px;
+            width: 330px;
         }
 
         a {
             text-decoration: none;
-            color: rgba(134, 134, 200, 1);
+            color: #8686c8;
 
         }
         a:hover {
@@ -112,52 +108,60 @@
     </style>
 </head>
 <body>
-<div align="center">
-    <header style="margin: 0; padding: 0; ">
-        <div id="menu">
-            <ul>
-                <li><a href="/">Главная</a></li>
-                <li><a href="/menuDish">Меню</a></li>
-                <li><a href="/basket">Корзина</a></li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">${user.name}</button>
-                        <div class="dropdown-content">
-                            <a href="/historyOfOrders">История заказов</a>
-                            <a href="/logout">Выйти</a>
-                        </div>
+<header style="margin: 0; padding: 0; ">
+    <div id="menu">
+        <ul>
+            <li><a href="/admin/dish/mainAdmin">Главная</a></li>
+            <li><a href="/admin/dish/menuDishForAdmin">Меню</a></li>
+            <li><a href="/admin/dish/basketForAdmin">Корзина</a></li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">${user.name}</button>
+                    <div class="dropdown-content">
+                        <a href="/admin/dish/adminSetting">Личный кабинет</a>
+                        <a href="/admin/dish/getAllDishCategory">Права администратора</a>
+                        <a href="/logout">Выйти</a>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </header>
-    <br>
+                </div>
+            </li>
+        </ul>
+    </div>
+</header>
 
-    <div align="center>">
+<h1 align ="center">${dishCategory.name}</h1>
 
-        <h2>Данные профиля:</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Наименование блюда</th>
+        <th>Описание блюда</th>
+        <th>Цена, руб.</th>
+        <th>Добавить блюдо в заказ</th>
+        <th>Фото</th>
+    </tr>
+    </thead>
+    <tbody>
+    <#list getAllDishOfCategoryDTOList as dish>
+    <tr>
+        <th>
+            <a href="/infoDish/${dish.id}">${dish.name}</a>
+        </th>
+        <th>${dish.description}</th>
+        <th>${dish.price}</th>
+        <th>
+            <form action="/addDishToOrder/${dish.id}" method="post">
+                <input type="submit" value="Добавить в заказ">
+            </form>
+        </th>
+        <#if dish.imageId??>
+        <th><img src="/images/${dish.imageId}"></th>
+    </#if>
+    </tbody>
 
-        <b>Имя: ${user.name}</b><br>
-        <b>Фамилия: ${user.surName}</b><br>
-        <b>Логин: ${user.login}</b><br>
-        <b>День рождения: ${user.birthday}</b><br>
-        <br>
+</#list>
+</tbody>
+</table>
 
-        <h3>Контакты:</h3>
-
-        <#list contacts as contact>
-        <p>
-            ${contact.contactType.name}: ${contact.name}
-        </p>
-    </#list>
-    <b>
-        <a href="/addContact"><h3>Добавить контакт</h3></a>
-    </b>
-    <b>
-        <a href="/historyOfOrders"><h3>История заказов</h3></a> <br>
-    </b>
-</div>
-</div>
-
+<br>
 </body>
 </html>

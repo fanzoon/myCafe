@@ -16,9 +16,13 @@ public interface DishCategoryService {
 
     List<DishCategory> getAllDishCategory();
 
+    List<DishCategory> getAllDishCategoryIsActive();
+
     List<Dish> getAllDishesOfDishCategory(Long id);
 
     List<GetAllDishOfCategoryDTO> getAllDishesOfDishCategoryDTO(Long id);
+
+    List<GetAllDishOfCategoryDTO> getAllDishesOfDishCategoryDTOIsActive(Long id);
 
     void changeStatusDishCategory(Long id);
 }

@@ -2,30 +2,9 @@
 <html>
 <head>
     <title>Dishes</title>
+    <link rel="stylesheet" href="styles/style.css">
     <style>
-        table {
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        th:last-child,
-        td:last-child {
-            text-align: center;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
     </style>
 </head>
 <body>

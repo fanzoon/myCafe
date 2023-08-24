@@ -24,6 +24,9 @@ public class Dish {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "activity")
+    private boolean activity;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish", orphanRemoval = true)
     private List<OrderDish> orderDishList = new ArrayList<>();
 
@@ -37,7 +40,6 @@ public class Dish {
     private List<Review> reviews = new ArrayList<>();
 
     public Dish() {
-
     }
 
     public Dish(Long id,
@@ -45,6 +47,7 @@ public class Dish {
                 String description,
                 Integer weight,
                 Double price,
+                boolean activity,
                 List<OrderDish> orderDishList,
                 DishCategory dishCategory,
                 List<Image> images,
@@ -54,6 +57,7 @@ public class Dish {
         this.description = description;
         this.weight = weight;
         this.price = price;
+        this.activity = activity;
         this.orderDishList = orderDishList;
         this.dishCategory = dishCategory;
         this.images = images;
@@ -130,5 +134,14 @@ public class Dish {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+
+    public boolean isActivity() {
+        return activity;
+    }
+
+    public void setActivity(boolean activity) {
+        this.activity = activity;
     }
 }

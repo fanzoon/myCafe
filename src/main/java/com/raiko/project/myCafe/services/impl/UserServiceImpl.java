@@ -1,10 +1,12 @@
 package com.raiko.project.myCafe.services.impl;
 
+import com.raiko.project.myCafe.dtos.UserDTO;
 import com.raiko.project.myCafe.models.User;
 import com.raiko.project.myCafe.models.UserRole;
 import com.raiko.project.myCafe.repositories.UserRepository;
 import com.raiko.project.myCafe.repositories.UserRoleRepository;
 import com.raiko.project.myCafe.services.UserService;
+import com.raiko.project.myCafe.transformers.TransformerUserDTOToUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @Autowired
+    private TransformerUserDTOToUser transformerUserDTOToUser;
+
     @Override
-    public Boolean create(User user) {
+    public Boolean create(UserDTO userDTO) {
+        User user = transformerUserDTOToUser.transform(userDTO);
         if (userRepository.findByLogin(user.getLogin()) != null) {
             return false;
         }
@@ -50,5 +56,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersByUserRole(String userRole) {
         return null;
+    }
+
+    @Override
+    public boolean checkConfirmPassword(String password, String confirmPassword) {
+        return password.equals(confirmPassword);
     }
 }

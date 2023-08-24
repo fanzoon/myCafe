@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -22,7 +23,6 @@ import java.util.List;
 
 @Controller
 public class OrderController {
-
     @Autowired
     private OrderServiceImpl orderService;
 
@@ -38,19 +38,19 @@ public class OrderController {
     @PostMapping("/addDishToOrder/{id}")
     public String addDishToOrder(@PathVariable("id") Long id) {
         Dish dish = orderService.addOrder(id);
-        return "redirect:/getAllDishOfCategory/" + dish.getDishCategory().getId();
+        return "redirect:/getAllDishOfCategoryIsActive/" + dish.getDishCategory().getId();
     }
 
     @PostMapping("/addDishFromOrder/{id}")
     public String addDishFromOrder(@PathVariable("id") Long id) {
         Dish dish = orderService.addDishFromOrder(id);
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
     @PostMapping("/removeDishFromOrder/{id}")
     public String removeDishFromOrder(@PathVariable("id") Long id) {
         Dish dish = orderService.removeDishFromOrder(id);
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
     @GetMapping ("/ordering/{orderId}")
@@ -87,5 +87,12 @@ public class OrderController {
         List<OrderHistoryDTO> orderHistoryDTOList = orderService.getHistoryOfOrdersIsPaid();
         model.addAttribute("orderHistoryDTOList", orderHistoryDTOList);
         return "user/dish/historyOrder";
+    }
+
+    @ModelAttribute("user")
+    public User  detUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        return user;
     }
 }

@@ -15,4 +15,10 @@ public interface DishService {
     Dish addOrUpdateDish(Dish newDish, MultipartFile file) throws IOException;
 
     Dish updateDish(Dish dish);
+
+    String deleteDish(Long dishId);
+
+    void changeStatusDish(Long dishId);
+
+
 }

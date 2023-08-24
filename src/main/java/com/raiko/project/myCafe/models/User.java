@@ -5,13 +5,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-//import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.*;
 
 @Entity
 @Table(name = "users")
-
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,15 +31,15 @@ public class User implements UserDetails {
     @Column(name = "dateOfCreate")
     private LocalDate dateOfCreate;
 
+    @Column(name = "birthday")
+    private LocalDate birthday;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserRole userRole;
 
     @Type(type = "org.hibernate.type.TrueFalseType")
     @Column(name = "ban", columnDefinition = "CHAR(1)", length = 1)
     private Boolean ban;
-
-    @Column(name = "birthday")
-    private LocalDate birthday;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orderList = new ArrayList<>();

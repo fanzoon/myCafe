@@ -2,8 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <title>New CategoryOfDish</title>
+    <link rel="stylesheet" href="css/styles.css">
+
     <style>
         table {
             border-collapse: collapse;
@@ -46,15 +47,6 @@
             color: #cfc6b2;
             font-size: 1.1rem;
         }
-        .button {
-            height:75px;
-            width: 200px;
-            border-radius: 10px;
-            background:#DCDCDC;
-            cursor:pointer;
-            font-size:23px;
-        }
-
         a {
             text-decoration: none;
             color: rgba(134, 134, 200, 1);
@@ -112,52 +104,47 @@
     </style>
 </head>
 <body>
-<div align="center">
-    <header style="margin: 0; padding: 0; ">
-        <div id="menu">
-            <ul>
-                <li><a href="/">Главная</a></li>
-                <li><a href="/menuDish">Меню</a></li>
-                <li><a href="/basket">Корзина</a></li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">${user.name}</button>
-                        <div class="dropdown-content">
-                            <a href="/historyOfOrders">История заказов</a>
-                            <a href="/logout">Выйти</a>
-                        </div>
+<header style="margin: 0; padding: 0; ">
+    <div id="menu">
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/menuDish">Меню</a></li>
+            <li><a href="/basket">Корзина</a></li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">${user.name}</button>
+                    <div class="dropdown-content">
+                        <a href="/userSetting">Личный кабинет</a>
+                        <a href="/historyOfOrders">История заказов</a>
+                        <a href="/logout">Выйти</a>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </header>
-    <br>
+                </div>
+            </li>
+        </ul>
+    </div>
+</header>
+<br>
 
-    <div align="center>">
-
-        <h2>Данные профиля:</h2>
-
-        <b>Имя: ${user.name}</b><br>
-        <b>Фамилия: ${user.surName}</b><br>
-        <b>Логин: ${user.login}</b><br>
-        <b>День рождения: ${user.birthday}</b><br>
-        <br>
-
-        <h3>Контакты:</h3>
-
-        <#list contacts as contact>
-        <p>
-            ${contact.contactType.name}: ${contact.name}
-        </p>
+<h1 align ="center">Меню</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Наименование категории</th>
+        <th>Позиция категории</th>
+        <th>Список блюд</th>
+    </tr>
+    </thead>
+    <tbody>
+    <#list dishCategories as dishCategory>
+    <tr>
+        <th>${dishCategory.name}</th>
+        <th>${dishCategory.numberPriority}</th>
+        <th>
+            <a href="/getAllDishOfCategoryIsActive/${dishCategory.id}">Посмотреть список блюд</a>
+        </th>
+    </tr>
     </#list>
-    <b>
-        <a href="/addContact"><h3>Добавить контакт</h3></a>
-    </b>
-    <b>
-        <a href="/historyOfOrders"><h3>История заказов</h3></a> <br>
-    </b>
-</div>
-</div>
-
+    </tbody>
+</table>
 </body>
 </html>

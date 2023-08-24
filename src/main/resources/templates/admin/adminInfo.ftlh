@@ -116,14 +116,14 @@
     <header style="margin: 0; padding: 0; ">
         <div id="menu">
             <ul>
-                <li><a href="/">Главная</a></li>
-                <li><a href="/menuDish">Меню</a></li>
-                <li><a href="/basket">Корзина</a></li>
+                <li><a href="/admin/dish/mainAdmin">Главная</a></li>
+                <li><a href="/admin/dish/menuDishForAdmin">Меню</a></li>
+                <li><a href="/admin/dish/basketForAdmin">Корзина</a></li>
                 <li>
                     <div class="dropdown">
                         <button class="dropbtn">${user.name}</button>
                         <div class="dropdown-content">
-                            <a href="/historyOfOrders">История заказов</a>
+                            <a href="/admin/dish/getAllDishCategory">Права администратора</a>
                             <a href="/logout">Выйти</a>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
         </p>
     </#list>
     <b>
-        <a href="/addContact"><h3>Добавить контакт</h3></a>
+        <a href="/admin/dish/addContactForAdmin"><h3>Добавить контакт</h3></a>
     </b>
     <b>
         <a href="/historyOfOrders"><h3>История заказов</h3></a> <br>

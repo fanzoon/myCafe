@@ -37,9 +37,13 @@ public class BasketServiceImpl implements BasketService {
                 basketDTO.setAmount(dish.getPrice() * orderDish.getCount());
                 basketDTOList.add(basketDTO);
             }
-
         return basketDTOList;
     }
+
+//    BasketDTO getBasketDTOByOrderId(User user,Long orderId) {
+//        List<BasketDTO> basketDTOListByUser = getAllBasketDTO(user);
+//        BasketDTO basketDTO =
+//    }
 
     @Override
     public Double getTotalAmount(List<BasketDTO> basketDTOs) {

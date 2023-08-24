@@ -1,6 +1,7 @@
 package com.raiko.project.myCafe.controllers;
 
 import com.raiko.project.myCafe.dtos.BasketDTO;
+import com.raiko.project.myCafe.dtos.GetAllDishOfCategoryDTO;
 import com.raiko.project.myCafe.models.*;
 import com.raiko.project.myCafe.services.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -37,14 +36,8 @@ public class DishController {
     private ReviewServiceImpl reviewService;
 
     @GetMapping("/")
-    public String getAllDishCategory(Model model) {
-        List<DishCategory> allDishCategory = dishCategoryService.getAllDishCategory();
-        List<DishCategory> dishCategories = new ArrayList<>();
-        for (DishCategory dishcategory : allDishCategory) {
-            if (dishcategory.isActivity() == true)
-                dishCategories.add(dishcategory);
-        }
-        Collections.sort(dishCategories, Comparator.comparingInt(DishCategory::getNumberPriority));
+    public String getAllDishCategoryIsActive(Model model) {
+        List<DishCategory> dishCategories = dishCategoryService.getAllDishCategoryIsActive();
         model.addAttribute("dishCategories", dishCategories);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
@@ -57,10 +50,10 @@ public class DishController {
         return "user/dish/mainPage";
     }
 
-    @GetMapping("/getAllDishOfCategory/{categoryId}")
+    @GetMapping("/getAllDishOfCategoryIsActive/{categoryId}")
     public String showAllDishesIntoDishCategory(@PathVariable("categoryId") Long categoryId, Model model) {
-        List<Dish> allDishesIntoDishCategory = dishCategoryService.getAllDishesOfDishCategory(categoryId);
-        model.addAttribute("allDishesIntoDishCategory", allDishesIntoDishCategory);
+        List<GetAllDishOfCategoryDTO> getAllDishOfCategoryDTOList = dishCategoryService.getAllDishesOfDishCategoryDTOIsActive(categoryId);
+        model.addAttribute("getAllDishOfCategoryDTOList", getAllDishOfCategoryDTOList);
         DishCategory dishCategory = dishCategoryService.getDishCategoryById(categoryId);
         model.addAttribute("dishCategory", dishCategory);
         return "user/dish/getAllDishOfCategory";
@@ -75,5 +68,19 @@ public class DishController {
         List<Review> reviewList = reviewService.getAllReviewByDish(dish);
         model.addAttribute("reviewList", reviewList);
         return "user/dish/infoDish";
+    }
+
+    @GetMapping("/menuDish")
+    public String menuDish(Model model) {
+        List<DishCategory> dishCategories = dishCategoryService.getAllDishCategoryIsActive();
+        model.addAttribute("dishCategories", dishCategories);
+        return "user/dish/menuDish";
+    }
+
+    @ModelAttribute("user")
+    public User  detUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        return user;
     }
 }

@@ -18,21 +18,22 @@
             display: flex;
             justify-content: center;
             color: #cfc6b2;
+            font-size: 1.1rem;
         }
-        .button {
-            height:24px;
-            width: 36px;
-            font-size:13px;
+        .button2 {
+            height:25px;
+            width: 55px;
+
         }
 
         a {
             text-decoration: none;
-            color: #8686c8;
+            color: rgba(134, 134, 200, 1);
             font-size: 17px;
 
         }
         a:hover {
-            color: #d64d94;
+            color: #dd4192;
         }
     </style>
 
@@ -42,7 +43,7 @@
 <header style="margin: 0; padding: 0; ">
     <div id="menu">
         <ul fr>
-            <li><a href="/registration">Регистрация</a></li>
+            <li><a href="/registration"><h2>Регистрация</h2></a></li>
 
         </ul>
     </div>
@@ -59,7 +60,7 @@
     Password<input type="password" name="password">
         <br>
         <br>
-    <input type="submit" value="Ok" class="button">
+    <input type="submit" value="Войти" class="button2">
     </h3>
 </form>
 </body>

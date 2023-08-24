@@ -13,11 +13,11 @@
 
         a {
             text-decoration: none;
-            color: #8686c8;
+            color: rgba(134, 134, 200, 1);
 
         }
         a:hover {
-            color: #d64d94;
+            color: #dd4192;
         }
 
         tbody {

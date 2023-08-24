@@ -10,5 +10,9 @@ public interface ReviewService {
 
     void saveReview(String message, Integer mark, Long dishId);
 
+    void updateReview(String message, Integer mark, Long reviewId);
+
     List<Review> getAllReviewByDish(Dish dish);
+
+    Review getReviewById(Long reviewId);
 }
